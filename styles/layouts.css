@@ -1,0 +1,9 @@
+#top-container {
+    display: flex;
+}
+
+menu {
+    display: flex;
+    list-style-type: none;
+    gap: 10px;
+}
