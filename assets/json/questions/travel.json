@@ -1,0 +1,12 @@
+[
+    {
+        "no" : 1,
+        "topic" : "travel",
+        "question" : "You indicated in the survey that you like to travel domestically. Which place in your country is your favorite? Why do you like that place? Tell me in detail."
+    },
+    {
+        "no" : 2,
+        "topic" : "travel",
+        "question" : "I also like traveling. Please ask me three or four questions about a trip that I took."
+    }
+]

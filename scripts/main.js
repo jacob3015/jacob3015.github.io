@@ -1,29 +1,48 @@
+import logger from 'custom-logger';
+import JsonRepository from 'json-repository';
+import WavRepository from 'wav-repository';
+import HtmlRepository from 'html-repository';
+
 const baseUrl = window.location.origin;
+
+const jsonRepository = new JsonRepository(baseUrl);
+const wavRepository = new WavRepository(baseUrl);
+const htmlRepository = new HtmlRepository(baseUrl);
 
 class App {
 
     constructor() {
+        logger.debug('', 'App constructor');
         this.layouts = {
-            header: document.createElement("header"),
-            menu: document.createElement("menu"),
-            contents: Object.assign(document.createElement("div"), {
-                id: "contents"
+            header: document.createElement('header'),
+            menu: document.createElement('menu'),
+            contents: Object.assign(document.createElement('div'), {
+                id: 'contents'
             }),
-            footer: document.createElement("footer")
+            footer: document.createElement('footer')
         };
-        this.parser = new DOMParser();
+        // this.data = {
+        //     layouts: {
+        //         header: undefined,
+        //         menu: undefined,
+        //         contents: undefined,
+        //         footer: undefined
+        //     },
+        //     baseUrl: window.location.origin
+        // }
+        // this.parser = new DOMParser();
     }
 
     loadDefaultPage() {
         this.loadLayouts();
-        this.loadHeader();
-        this.loadFooter();
-        this.loadMenu();
+        // this.loadHeader();
+        // this.loadFooter();
+        // this.loadMenu();
     }
 
     loadLayouts() {
-        const topContainer = Object.assign(document.createElement("div"), {
-            id: "top-container"
+        const topContainer = Object.assign(document.createElement('div'), {
+            id: 'top-container'
         });
         topContainer.append(this.layouts.header, this.layouts.menu);
 
@@ -31,55 +50,55 @@ class App {
     }
 
     async loadHeader() {
-        try {
-            const response = await fetch(`${baseUrl}/templates/header.html`);
-            if (!response.ok) {
-                throw new Error("http error");
-            }
-            const htmlText = await response.text();
+        // try {
+        //     const response = await fetch(`${baseUrl}/templates/header.html`);
+        //     if (!response.ok) {
+        //         throw new Error("http error");
+        //     }
+        //     const htmlText = await response.text();
 
-            const document = this.parser.parseFromString(htmlText, "text/html");
+        //     const document = this.parser.parseFromString(htmlText, "text/html");
 
-            const template = document.querySelector("template");
-            const content = document.importNode(template.content, true);
-            this.layouts.header.append(content);
-        } catch (error) {
-            console.error(error);
-        }
+        //     const template = document.querySelector("template");
+        //     const content = document.importNode(template.content, true);
+        //     this.layouts.header.append(content);
+        // } catch (error) {
+        //     console.error(error);
+        // }
     }
 
     async loadFooter() {
-        try {
-            const response = await fetch(`${baseUrl}/templates/footer.html`);
-            if (!response.ok) {
-                throw new Error("http error");
-            }
-            const htmlText = await response.text();
+        // try {
+        //     const response = await fetch(`${baseUrl}/templates/footer.html`);
+        //     if (!response.ok) {
+        //         throw new Error("http error");
+        //     }
+        //     const htmlText = await response.text();
             
-            const document = this.parser.parseFromString(htmlText, "text/html");
-            const template = document.querySelector("template");
-            const content = document.importNode(template.content, true);
-            this.layouts.footer.append(content);
-        } catch (error) {
-            console.error(error);
-        }
+        //     const document = this.parser.parseFromString(htmlText, "text/html");
+        //     const template = document.querySelector("template");
+        //     const content = document.importNode(template.content, true);
+        //     this.layouts.footer.append(content);
+        // } catch (error) {
+        //     console.error(error);
+        // }
     }
 
     async loadMenu() {
-        try {
-            const response = await fetch(`${baseUrl}/templates/menu.html`);
-            if (!response.ok) {
-                throw new Error("http error");
-            }
-            const htmlText = await response.text();
+        // try {
+        //     const response = await fetch(`${baseUrl}/templates/menu.html`);
+        //     if (!response.ok) {
+        //         throw new Error("http error");
+        //     }
+        //     const htmlText = await response.text();
             
-            const document = this.parser.parseFromString(htmlText, "text/html");
-            const template = document.querySelector("template");
-            const content = document.importNode(template.content, true);
-            this.layouts.menu.append(content);
-        } catch (error) {
-            console.error(error);
-        }
+        //     const document = this.parser.parseFromString(htmlText, "text/html");
+        //     const template = document.querySelector("template");
+        //     const content = document.importNode(template.content, true);
+        //     this.layouts.menu.append(content);
+        // } catch (error) {
+        //     console.error(error);
+        // }
     }
 }
 

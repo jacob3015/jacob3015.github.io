@@ -1,0 +1,12 @@
+[
+    {
+        "no" : 1,
+        "topic" : "listening-music",
+        "question" : "You indicated in the survey that you enjoy listening to music. What kind of music do you listen to? Why do you like it? Do you have any favorite musician or composer? Tell me everything about the reason why you like him or her."
+    },
+    {
+        "no" : 2,
+        "topic" : "listening-music",
+        "question" : "I'd like to know how you enjoy music. When do you usually listen to music? Where do you normally go to enjoy listening to music? Do you attend a concert? Or do you go to some places to enjoy live music? Tell me everything about the way you listen to music."
+    }
+]
