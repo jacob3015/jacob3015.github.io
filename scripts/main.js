@@ -1,13 +1,11 @@
 import logger from 'custom-logger';
-import JsonRepository from 'json-repository';
-import WavRepository from 'wav-repository';
-import HtmlRepository from 'html-repository';
+import HtmlRepositoryImpl from 'html-repository-impl';
+import HtmlServiceImpl from 'html-service-impl';
 
 const baseUrl = window.location.origin;
 
-const jsonRepository = new JsonRepository(baseUrl);
-const wavRepository = new WavRepository(baseUrl);
-const htmlRepository = new HtmlRepository(baseUrl);
+const htmlRepository = new HtmlRepositoryImpl(baseUrl);
+const htmlService = new HtmlServiceImpl(htmlRepository);
 
 class App {
 
