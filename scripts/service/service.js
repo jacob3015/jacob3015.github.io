@@ -10,6 +10,9 @@ class ImageService {
 }
 
 class JsonService {
+    async findTopics() { throw new MethodNotImplementedError('findTopics is not implemented', 'JsonService'); }
+    async findQuestionsByTopic(topic) { throw new MethodNotImplementedError('findQuestionsByTopic is not implemented', 'JsonService'); }
+    getRandomIndices(list, number) { throw new MethodNotImplementedError('getRandomIndices is not implemented', 'JsonService'); }
 }
 
 class MarkdownService {

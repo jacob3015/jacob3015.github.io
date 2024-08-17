@@ -25,6 +25,7 @@ class JsonRepository extends Repository {
         super(baseUrl);
     }
     async findByFilename(filename) { throw new MethodNotImplementedError('findByFileName is not implemented', 'JsonRepository'); }
+    async findQuestionsByFilename(filename) { throw new MethodNotImplementedError('findQuestionsByFilename is not implemented', 'JsonRepository'); }
 }
 
 /**
@@ -35,6 +36,7 @@ class MarkdownRepository extends Repository {
         super(baseUrl);
     }
     async findByFileName(filename) { throw new MethodNotImplementedError('findByFileName is not implemented', 'MarkdownRepository'); }
+    async findPostByFilename(filename) { throw new MethodNotImplementedError('findPostByFilename is not implemented', 'MarkdownRepository'); }
 }
 
 /**
@@ -45,6 +47,7 @@ class WavRepository extends Repository {
         super(baseUrl);
     }
     async findByFileName(filename) { throw new MethodNotImplementedError('findByFileName is not implemented', 'WavRepository'); }
+    async findByTopicAndFilename(topic, filename) { throw new MethodNotImplementedError('findByTopicAndFilename is not implemented', 'WavRepository'); }
 }
 
 export {

@@ -11,8 +11,8 @@ class HtmlRepositoryImpl extends HtmlRepository {
     }
 
     /**
-     * fetch file from {domain}/assets/html/
-     * @param {string} filename
+     * fetch html file from {domain}/assets/html/
+     * @param {string} filename without .html
      * @returns html as text
      * @throws HttpError if response is not ok, NetworkError if its network failure
      */
@@ -36,8 +36,8 @@ class HtmlRepositoryImpl extends HtmlRepository {
     }
 
     /**
-     * fetch file from {domain}/assets/html/templates/
-     * @param {string} filename 
+     * fetch html file from {domain}/assets/html/templates/
+     * @param {string} filename without .html
      * @returns html as text
      * @throws HttpError if response is not ok, NetworkError if its network failure
      */
