@@ -1,11 +1,19 @@
 import logger from 'custom-logger';
+import { jsonFetcher, textFetcher, blobFetcher } from 'custom-fetcher';
 import HtmlRepositoryImpl from 'html-repository-impl';
+import JsonRepositoryImpl from 'json-repository-impl';
+import MarkdownRepositoryImpl from 'markdown-repository-impl';
+import WavRepositoryImpl from 'wav-repository-impl';
 import HtmlServiceImpl from 'html-service-impl';
 
 const baseUrl = window.location.origin;
 
-const htmlRepository = new HtmlRepositoryImpl(baseUrl);
-const htmlService = new HtmlServiceImpl(htmlRepository);
+const htmlRepository = new HtmlRepositoryImpl(baseUrl, textFetcher);
+const jsonRepository = new JsonRepositoryImpl(baseUrl, jsonFetcher);
+const markdownRepository = new MarkdownRepositoryImpl(baseUrl, textFetcher);
+const wavRepository = new WavRepositoryImpl(baseUrl, blobFetcher);
+
+// const htmlService = new HtmlServiceImpl(htmlRepository);
 
 class App {
 

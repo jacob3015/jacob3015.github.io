@@ -1,61 +1,51 @@
 import logger from 'custom-logger';
 import { HtmlRepository } from 'repository';
-import HttpError from 'http-error';
-import NetworkError from 'network-error';
 
 class HtmlRepositoryImpl extends HtmlRepository {
 
-    constructor(baseUrl) {
-        logger.debug('', 'HtmlRepositoryImpl constructor', baseUrl);
-        super(`${baseUrl}/assets/html`);
+    constructor(baseUrl, fetcher) {
+        logger.debug('', 'HtmlRepositoryImpl constructor', baseUrl, fetcher);
+        super(`${baseUrl}/assets/html`, fetcher);
     }
 
     /**
-     * fetch html file from {domain}/assets/html/
-     * @param {string} filename without .html
-     * @returns html as text
-     * @throws HttpError if response is not ok, NetworkError if its network failure
+     * Find data with the specified filename and returns a promise that resolves to string.
+     * 
+     * @param {string} filename The filename to find the data.
+     * @returns {Promise<string>} A promise that resolves to string.
+     * @throws {HttpError} if response status is not ok.
+     * @throws {NetworkError} if there is a network issue.
+     * @throws {TypeError} if there is a decoding issue with the body content.
      */
     async findByFilename(filename) {
         logger.debug('', 'HtmlRepositoryImpl findByFilename', filename);
 
         const url = `${this.baseUrl}/${filename}.html`;
         try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new HttpError('response is not ok', response.status);
-            }
-            return await response.text();
+            return this.fetcher.fetch(url);
         } catch (error) {
             logger.error(error, `failed to fetch ${url}`, 'HtmlRepositoryImpl findByFilename', filename);
-            if (error instanceof TypeError) {
-                throw new NetworkError('');
-            }
             throw error;
         }
     }
 
     /**
-     * fetch html file from {domain}/assets/html/templates/
-     * @param {string} filename without .html
-     * @returns html as text
-     * @throws HttpError if response is not ok, NetworkError if its network failure
+     * Find data with the specified filename and returns a promise that resolves to string.
+     * 
+     * @param {string} filename The filename to find the data.
+     * @returns {Promise<string>} A promise that resolves to string.
+     * @throws {HttpError} if response status is not ok.
+     * @throws {NetworkError} if there is a network issue.
+     * @throws {TypeError} if there is a decoding issue with the body content.
      */
     async findTemplateByFilename(filename) {
         logger.debug('', 'HtmlRepositoryImpl findTemplateByFilename', filename);
 
         const url = `${this.baseUrl}/templates/${filename}.html`;
         try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new HttpError('response is not ok', response.status);
-            }
-            return await response.text();
+            return this.fetcher.fetch(url);
         } catch (error) {
             logger.error(error, `failed to fetch ${url}`, 'HtmlRepositoryImpl findTemplateByFilename', filename);
-            if (error instanceof TypeError) {
-                throw new NetworkError('');
-            }
             throw error;
         }
     }

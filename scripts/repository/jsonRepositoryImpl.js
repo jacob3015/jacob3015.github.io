@@ -1,61 +1,53 @@
 import logger from 'custom-logger';
 import { JsonRepository } from 'repository';
-import HttpError from 'http-error';
-import NetworkError from 'network-error';
 
 class JsonRepositoryImpl extends JsonRepository {
 
-    constructor(baseUrl) {
-        logger.debug('', 'JsonRepositoryImpl constructor', baseUrl);
-        super(`${baseUrl}/assets/json`);
+    constructor(baseUrl, fetcher) {
+        logger.debug('', 'JsonRepositoryImpl constructor', baseUrl, fetcher);
+        super(`${baseUrl}/assets/json`, fetcher);
     }
 
     /**
-     * fetch json file from {domain}/assets/json/
-     * @param {string} filename without .json
-     * @returns json
-     * @throws TypeError if its network failure, HttpError if response is not ok, SyntaxError if json is invalid
+     * Find data with the specified filename and returns a promise that resolves to json.
+     * 
+     * @param {string} filename The filename to find the data.
+     * @returns {Promise<Object>} A promise that resolves to json.
+     * @throws {HttpError} if response status is not ok.
+     * @throws {NetworkError} if there is a network issue.
+     * @throws {TypeError} if there is a decoding issue with the body content.
+     * @throws {SyntaxError} if the response body cannot be parsed as json.
      */
     async findByFilename(filename) {
         logger.debug('', 'JsonRepositoryImpl findByFilename', filename);
 
         const url = `${this.baseUrl}/${filename}.json`;
         try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new HttpError('response is not ok', response.status);
-            }
-            return await response.json();
+            return this.fetcher.fetch(url);
         } catch (error) {
             logger.error(error, `failed to fetch ${url}`, 'JsonRepositoryImpl findByFilename', filename);
-            if (error instanceof TypeError) {
-                throw new NetworkError('');
-            }
             throw error;
         }
     }
 
     /**
-     * fetch json file from {domain}/assets/json/questions/
-     * @param {*} filename without .json
-     * @returns json
-     * @throws TypeError if its network failure, HttpError if response is not ok, SyntaxError if json is invalid
+     * Find data with the specified filename and returns a promise that resolves to json.
+     * 
+     * @param {string} filename The filename to find the data.
+     * @returns {Promise<Object>} A promise that resolves to json.
+     * @throws {HttpError} if response status is not ok.
+     * @throws {NetworkError} if there is a network issue.
+     * @throws {TypeError} if there is a decoding issue with the body content.
+     * @throws {SyntaxError} if the response body cannot be parsed as json.
      */
     async findQuestionsByFilename(filename) {
         logger.debug('', 'JsonRepositoryImpl findQuestionsByFilename', filename);
 
         const url = `${this.baseUrl}/questions/${filename}.json`;
         try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new HttpError('response is not ok', response.status);
-            }
-            return response.json();
+            return this.fetcher.fetch(url);
         } catch (error) {
             logger.error(error, `failed to fetch ${url}`, 'JsonRepositoryImpl findQuestionsByFilename', filename);
-            if (error instanceof TypeError) {
-                throw new NetworkError('');
-            }
             throw error;
         }
     }
