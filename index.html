@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- favicons -->
-    <link rel="icon" href="/icons/favicon-16x16.png" sizes="16x16" type="image/png">
-    <link rel="icon" href="/icons/favicon-32x32.png" sizes="32x32" type="image/png">
-    <link rel="icon" href="/icons/favicon.ico" sizes="48x48" type="ico">
-    <link rel="manifest" href="/icons/site.webmanifest">
-    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+    <link rel="icon" href="/assets/img/icons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="icon" href="/assets/img/icons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/assets/img/icons/favicon.ico" sizes="48x48" type="ico">
+    <link rel="manifest" href="/assets/img/icons/site.webmanifest">
+    <link rel="apple-touch-icon" href="/assets/img/icons/apple-touch-icon.png">
 
     <!-- styles -->
     <link rel="stylesheet" href="/styles/layouts.css">
@@ -17,6 +17,29 @@
     <title>Jacob's Landing Page</title>
 </head>
 <body>
+    <script type="importmap">
+        {
+            "imports": {
+                "marked": "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js",
+                "custom-logger": "./scripts/util/customLogger.js",
+                "custom-fetcher": "./scripts/util/customFetcher.js",
+                "http-error": "./scripts/error/httpError.js",
+                "element-not-found-error": "./scripts/error/elementNotFoundError.js",
+                "method-not-implemented-error": "./scripts/error/methodNotImplementedError.js",
+                "network-error": "./scripts/error/networkError.js",
+                "repository": "./scripts/repository/repository.js",
+                "html-repository-impl": "./scripts/repository/htmlRepositoryImpl.js",
+                "json-repository-impl": "./scripts/repository/jsonRepositoryImpl.js",
+                "markdown-repository-impl": "./scripts/repository/markdownRepositoryImpl.js",
+                "wav-repository-impl": "./scripts/repository/wavRepositoryImpl.js",
+                "service": "./scripts/service/service.js",
+                "html-service-impl": "./scripts/service/htmlServiceImpl.js",
+                "json-service-impl": "./scripts/service/jsonServiceImpl.js",
+                "layout-component": "./scripts/component/layoutComponent.js",
+                "question-component": "./scripts/component/questionComponent.js"
+            }
+        }
+    </script>
     <script type="module" src="./scripts/main.js"></script>
 </body>
 </html>
