@@ -4,7 +4,8 @@ import HtmlRepositoryImpl from 'html-repository-impl';
 import JsonRepositoryImpl from 'json-repository-impl';
 import MarkdownRepositoryImpl from 'markdown-repository-impl';
 import WavRepositoryImpl from 'wav-repository-impl';
-import HtmlServiceImpl from 'html-service-impl';
+import QuestionComponent from 'question-component';
+import LayoutComponent from 'layout-component';
 
 const baseUrl = window.location.origin;
 
@@ -13,98 +14,50 @@ const jsonRepository = new JsonRepositoryImpl(baseUrl, jsonFetcher);
 const markdownRepository = new MarkdownRepositoryImpl(baseUrl, textFetcher);
 const wavRepository = new WavRepositoryImpl(baseUrl, blobFetcher);
 
-// const htmlService = new HtmlServiceImpl(htmlRepository);
-
 class App {
 
     constructor() {
         logger.debug('', 'App constructor');
-        this.layouts = {
-            header: document.createElement('header'),
-            menu: document.createElement('menu'),
-            contents: Object.assign(document.createElement('div'), {
-                id: 'contents'
-            }),
-            footer: document.createElement('footer')
-        };
-        // this.data = {
-        //     layouts: {
-        //         header: undefined,
-        //         menu: undefined,
-        //         contents: undefined,
-        //         footer: undefined
-        //     },
-        //     baseUrl: window.location.origin
-        // }
-        // this.parser = new DOMParser();
     }
 
-    loadDefaultPage() {
+    async loadDefaultPage() {
         this.loadLayouts();
-        // this.loadHeader();
-        // this.loadFooter();
-        // this.loadMenu();
+        this.loadAbout().then(content => {
+            this.layout.updateContents(content);
+        });
     }
 
     loadLayouts() {
-        const topContainer = Object.assign(document.createElement('div'), {
-            id: 'top-container'
+        this.layout = new LayoutComponent({
+            container: document.body,
+            about: this.loadAbout,
+            project: this.loadProject
         });
-        topContainer.append(this.layouts.header, this.layouts.menu);
-
-        document.body.append(topContainer, this.layouts.contents, this.layouts.footer);
     }
 
-    async loadHeader() {
-        // try {
-        //     const response = await fetch(`${baseUrl}/templates/header.html`);
-        //     if (!response.ok) {
-        //         throw new Error("http error");
-        //     }
-        //     const htmlText = await response.text();
-
-        //     const document = this.parser.parseFromString(htmlText, "text/html");
-
-        //     const template = document.querySelector("template");
-        //     const content = document.importNode(template.content, true);
-        //     this.layouts.header.append(content);
-        // } catch (error) {
-        //     console.error(error);
-        // }
+    async loadAbout() {
+        const about = document.createElement('p');
+        about.textContent = 'Welcome to Jaimin Pak Landing Page!!';
+        return about;
     }
 
-    async loadFooter() {
-        // try {
-        //     const response = await fetch(`${baseUrl}/templates/footer.html`);
-        //     if (!response.ok) {
-        //         throw new Error("http error");
-        //     }
-        //     const htmlText = await response.text();
-            
-        //     const document = this.parser.parseFromString(htmlText, "text/html");
-        //     const template = document.querySelector("template");
-        //     const content = document.importNode(template.content, true);
-        //     this.layouts.footer.append(content);
-        // } catch (error) {
-        //     console.error(error);
-        // }
-    }
+    async loadProject() {
+        const orderedListElem = document.createElement('ol');
+        const questions = await jsonRepository.findQuestionsByFilename('reading');
 
-    async loadMenu() {
-        // try {
-        //     const response = await fetch(`${baseUrl}/templates/menu.html`);
-        //     if (!response.ok) {
-        //         throw new Error("http error");
-        //     }
-        //     const htmlText = await response.text();
-            
-        //     const document = this.parser.parseFromString(htmlText, "text/html");
-        //     const template = document.querySelector("template");
-        //     const content = document.importNode(template.content, true);
-        //     this.layouts.menu.append(content);
-        // } catch (error) {
-        //     console.error(error);
-        // }
+        for (const data of questions) {
+            const listElem = document.createElement('li');
+            orderedListElem.appendChild(listElem);
+
+            const audioBlob = await wavRepository.findByTopicAndFilename(data['topic'], data['no']);
+            const questionComponent = new QuestionComponent({
+                container: listElem,
+                topic: data['topic'],
+                question: data['question'],
+                audioBlob: audioBlob
+            });
+        }
+        return orderedListElem;
     }
 }
 
