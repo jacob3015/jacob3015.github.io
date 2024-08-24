@@ -1,17 +1,10 @@
-/**
- * Question component.
- * 
- * <{container}>
- *      <p> Topic: {topic} </p>
- *      <p> Question: {question} </p>
- *      <audio controls="true" preload="none" autoplay="false">
- *          <source src={URL by audioBlob} type="audio/wav">
- *      </audio>
- * </{container}>
- */
+import logger from 'custom-logger';
+
 class QuestionComponent {
 
     constructor(properties) {
+        logger.debug('', 'QuestionComponent constructor');
+        
         this.updateProperties(properties);
         this.buildDomElement();
         this.render();

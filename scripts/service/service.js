@@ -16,6 +16,7 @@ class JsonService {
 }
 
 class MarkdownService {
+    async findAbout() { throw new MethodNotImplementedError('findAbout is not implemented', 'MarkdownService'); }
 }
 
 class WavService {

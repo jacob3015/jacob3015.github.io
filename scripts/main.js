@@ -4,8 +4,12 @@ import HtmlRepositoryImpl from 'html-repository-impl';
 import JsonRepositoryImpl from 'json-repository-impl';
 import MarkdownRepositoryImpl from 'markdown-repository-impl';
 import WavRepositoryImpl from 'wav-repository-impl';
-import QuestionComponent from 'question-component';
+import HtmlServiceImpl from 'html-service-impl';
+import MarkdownServiceImpl from 'markdown-service-impl';
 import LayoutComponent from 'layout-component';
+import AboutComponent from 'about-component';
+import Router from 'router';
+import App from 'app';
 
 const baseUrl = window.location.origin;
 
@@ -14,52 +18,107 @@ const jsonRepository = new JsonRepositoryImpl(baseUrl, jsonFetcher);
 const markdownRepository = new MarkdownRepositoryImpl(baseUrl, textFetcher);
 const wavRepository = new WavRepositoryImpl(baseUrl, blobFetcher);
 
-class App {
+const htmlService = new HtmlServiceImpl(htmlRepository);
+const markdownService = new MarkdownServiceImpl(markdownRepository);
 
-    constructor() {
-        logger.debug('', 'App constructor');
+const layoutComponent = new LayoutComponent(htmlService);
+const aboutComponent = new AboutComponent(markdownService);
+
+const router = new Router([
+    {
+        path: '/',
+        target: 'contents-container',
+        component: aboutComponent
+    },
+    {
+        path: '/about',
+        target: 'contents-container',
+        component: aboutComponent
     }
+]);
 
-    async loadDefaultPage() {
-        this.loadLayouts();
-        this.loadAbout().then(content => {
-            this.layout.updateContents(content);
-        });
-    }
+const app = new App(router, layoutComponent);
 
-    loadLayouts() {
-        this.layout = new LayoutComponent({
-            container: document.body,
-            about: this.loadAbout,
-            project: this.loadProject
-        });
-    }
+// const router = new CustomRouter({
+//     '': this.loadHome,
+//     '/404': this.loadNotFound,
+//     '/home': this.loadHome,
+//     '/about': this.loadAbout,
+//     '/project': this.project
+// });
 
-    async loadAbout() {
-        const about = document.createElement('p');
-        about.textContent = 'Welcome to Jaimin Pak Landing Page!!';
-        return about;
-    }
+// const layout = new LayoutComponent({
+//     container: document.body
+// });
 
-    async loadProject() {
-        const orderedListElem = document.createElement('ol');
-        const questions = await jsonRepository.findQuestionsByFilename('reading');
+// router.onRouteChangeCallback(content => {
+//     layout.updateContents(content);
+// })
 
-        for (const data of questions) {
-            const listElem = document.createElement('li');
-            orderedListElem.appendChild(listElem);
+// router.handleNavigation();
+// class App {
 
-            const audioBlob = await wavRepository.findByTopicAndFilename(data['topic'], data['no']);
-            const questionComponent = new QuestionComponent({
-                container: listElem,
-                topic: data['topic'],
-                question: data['question'],
-                audioBlob: audioBlob
-            });
-        }
-        return orderedListElem;
-    }
-}
+//     constructor() {
+//         logger.debug('', 'App constructor');
+        
+//         this.router = new CustomRouter({
+//             routes: {
+//                 '': this.loadHome,
+//                 '/404': this.loadNotFound,
+//                 '/home': this.loadHome,
+//                 '/about': this.loadAbout,
+//                 '/project': this.loadProject
+//             }
+//         })
+//         this.layout = new LayoutComponent({
+//             container: document.body,
+//             router: this.router
+//         });
+//         this.router.navigate('/home')().then(content => {
+//             this.layout.updateContents(content);
+//         })
+//         window.addEventListener('hashchange', () => {
+//             const path = location.hash.replace('#', '');
+//             this.router.route[path]().then(content => {
+//                 this.layout.updateContents(content);
+//             })
+//         });
+//     }
 
-const app = new App();
-app.loadDefaultPage();
+//     async loadHome() {
+//         const home = document.createElement('p');
+//         home.textContent = 'Welcome to Jaimin Pak Landing Page!!';
+//         return home;
+//     }
+
+//     async loadAbout() {
+//         const about = document.createElement('p');
+//         about.textContent = `Back-end developer`;
+//         return about;
+//     }
+
+//     async loadProject() {
+//         const orderedListElem = document.createElement('ol');
+//         const questions = await jsonRepository.findQuestionsByFilename('reading');
+
+//         for (const data of questions) {
+//             const listElem = document.createElement('li');
+//             orderedListElem.appendChild(listElem);
+
+//             const audioBlob = await wavRepository.findByTopicAndFilename(data['topic'], data['no']);
+//             const questionComponent = new QuestionComponent({
+//                 container: listElem,
+//                 topic: data['topic'],
+//                 question: data['question'],
+//                 audioBlob: audioBlob
+//             });
+//         }
+//         return orderedListElem;
+//     }
+
+//     async loadNotFound() {
+//         const notFound = document.createElement('p');
+//         notFound.textContent = 'Page not found';
+//         return notFound;
+//     }
+// }
