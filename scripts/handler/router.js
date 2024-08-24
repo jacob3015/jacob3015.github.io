@@ -35,7 +35,7 @@ class Router {
     }
 
     renderBaseOnHash() {
-        logger.debug('', 'Router renderBashOnHash');
+        logger.debug('', 'Router renderBaseOnHash');
         
         const path = location.hash.replace('#', '');
         const route = this.routes.filter((route) => route.path === path);
@@ -43,7 +43,7 @@ class Router {
         if (target) {
             route[0].component.render(target);
         } else {
-            logger.info('target not found', 'Router renderBashOnHash');
+            logger.info('target not found', 'Router renderBaseOnHash');
         }
     }
 }

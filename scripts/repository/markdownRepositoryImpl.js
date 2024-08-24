@@ -6,6 +6,7 @@ class MarkdownRepositoryImpl extends MarkdownRepository {
     constructor(baseUrl, fetcher) {
         logger.debug('', 'MarkdownRepository constructor', baseUrl, fetcher);
         super(`${baseUrl}/assets/md`, fetcher);
+        this.cache = new Map();
     }
 
     /**
@@ -21,8 +22,17 @@ class MarkdownRepositoryImpl extends MarkdownRepository {
         logger.debug('', 'MarkdownRepositoryImpl findByFilename', filename);
 
         const url = `${this.baseUrl}/${filename}.md`;
+
+        const cachedData = this.cache.get(url);
+        if (cachedData) {
+            logger.debug('cache hit', 'MarkdownRepositoryImpl findByFilename', filename);
+            return cachedData;
+        }
+
         try {
-            return this.fetcher.fetch(url);
+            const data = this.fetcher.fetch(url);
+            this.cache.set(url, data);
+            return data;
         } catch (error) {
             logger.error(error, `failed to fetch ${url}`, 'MarkdownRepositoryImpl findByFilename', filename);
             throw error;
@@ -42,8 +52,17 @@ class MarkdownRepositoryImpl extends MarkdownRepository {
         logger.debug('', 'MarkdownRepositoryImpl findPostByFilename', filename);
 
         const url = `${this.baseUrl}/posts/${filename}.md`;
+
+        const cachedData = this.cache.get(url);
+        if (cachedData) {
+            logger.debug('cache hit', 'MarkdownRepositoryImpl findByFilename', filename);
+            return cachedData;
+        }
+
         try {
-            return this.fetcher.fetch(url);
+            const data = this.fetcher.fetch(url);
+            this.cache.set(url, data);
+            return data;
         } catch (error) {
             logger.error(error, `failed to fetch ${url}`, 'MarkdownRepositoryImpl findPostByFilename', filename);
             throw error;

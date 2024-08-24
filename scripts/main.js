@@ -8,6 +8,7 @@ import HtmlServiceImpl from 'html-service-impl';
 import MarkdownServiceImpl from 'markdown-service-impl';
 import LayoutComponent from 'layout-component';
 import AboutComponent from 'about-component';
+import ProjectListComponent from 'project-list-component';
 import Router from 'router';
 import App from 'app';
 
@@ -23,6 +24,7 @@ const markdownService = new MarkdownServiceImpl(markdownRepository);
 
 const layoutComponent = new LayoutComponent(htmlService);
 const aboutComponent = new AboutComponent(markdownService);
+const projectListComponent = new ProjectListComponent(htmlService);
 
 const router = new Router([
     {
@@ -32,6 +34,16 @@ const router = new Router([
     },
     {
         path: '/about',
+        target: 'contents-container',
+        component: aboutComponent
+    },
+    {
+        path: '/project-list',
+        target: 'contents-container',
+        component: projectListComponent
+    },
+    {
+        path: '/project-list/esp',
         target: 'contents-container',
         component: aboutComponent
     }
