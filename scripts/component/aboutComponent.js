@@ -11,6 +11,7 @@ class AboutComponent {
         logger.debug('', 'AboutComponent buildDomElement');
 
         const container = document.createElement('div');
+        container.id = 'markdown-container';
         container.innerHTML = await this.markdownService.findAbout();
 
         return container;

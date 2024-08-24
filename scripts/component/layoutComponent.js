@@ -1,5 +1,6 @@
 import logger from 'custom-logger';
 import eventFactory from 'event-factory';
+import eventDispatcher from 'event-dispatcher';
 
 class LayoutComponent {
 
@@ -16,17 +17,13 @@ class LayoutComponent {
         this.homeBtn = this.layout.getElementById('home-btn');
         this.homeBtn.addEventListener('click', () => {
             logger.debug('dispatch updatehash event', 'LayoutComponent buildDomElement homeBtn');
-            eventFactory.dispatchEvent('updatehash', {
-                hash: '/about'
-            });
+            eventDispatcher.dispatch(eventFactory.create('updatehash', { hash: '/about' }));
         });
 
         this.aboutBtn = this.layout.getElementById('about-btn');
         this.aboutBtn.addEventListener('click', () => {
             logger.debug('dispatch updatehash event', 'LayoutComponent buildDomElement aboutBtn');
-            eventFactory.dispatchEvent('updatehash', {
-                hash: '/about'
-            });
+            eventDispatcher.dispatch(eventFactory.create('updatehash', { hash: '/about' }));
         });
 
         this.blogBtn = this.layout.getElementById('blog-btn');
@@ -34,9 +31,7 @@ class LayoutComponent {
         this.projectBtn = this.layout.getElementById('project-btn');
         this.projectBtn.addEventListener('click', () => {
             logger.debug('dispatch updatehash event', 'LayoutComponent buildDomElement projectBtn');
-            eventFactory.dispatchEvent('updatehash', {
-                hash: '/project-list'
-            });
+            eventDispatcher.dispatch(eventFactory.create('updatehash', { hash: '/project-list' }));
         })
 
         return this.layout;

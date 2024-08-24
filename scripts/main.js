@@ -28,7 +28,7 @@ const projectListComponent = new ProjectListComponent(htmlService);
 
 const router = new Router([
     {
-        path: '/',
+        path: '',
         target: 'contents-container',
         component: aboutComponent
     },
@@ -49,7 +49,11 @@ const router = new Router([
     }
 ]);
 
-const app = new App(router, layoutComponent);
+try {
+    const app = new App(router, layoutComponent);
+} catch (error) {
+    logger.error(error, error.message, 'main.js');
+}
 
 // const router = new CustomRouter({
 //     '': this.loadHome,

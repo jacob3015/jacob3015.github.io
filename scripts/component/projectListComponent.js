@@ -1,5 +1,6 @@
 import logger from 'custom-logger';
 import eventFactory from 'event-factory';
+import eventDispatcher from 'event-dispatcher';
 
 class ProjectListComponent {
 
@@ -16,9 +17,7 @@ class ProjectListComponent {
         this.startEspBtn = this.projectList.getElementById('start-esp-btn');
         this.startEspBtn.addEventListener('click', () => {
             logger.debug('dispatch updatehash event', 'ProjectListComponent buildDomEvent startEspBtn');
-            eventFactory.dispatchEvent('updatehash', {
-                hash: '/project-list/esp'
-            });
+            eventDispatcher.dispatch(eventFactory.create('updatehash', { hash: '/project-list/esp' }));
         });
 
         return this.projectList;
