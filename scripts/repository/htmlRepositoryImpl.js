@@ -23,10 +23,9 @@ class HtmlRepositoryImpl extends HtmlRepository {
 
         const url = `${this.baseUrl}/${filename}.html`;
 
-        const cachedData = this.cache.get(url);
-        if (cachedData) {
+        if (this.cache.has(url)) {
             logger.debug('cache hit', 'HtmlRepositoryImpl findByFilename', filename);
-            return cachedData;
+            return this.cache.get(url);
         }
 
         try {
@@ -53,10 +52,9 @@ class HtmlRepositoryImpl extends HtmlRepository {
 
         const url = `${this.baseUrl}/templates/${filename}.html`;
 
-        const cachedData = this.cache.get(url);
-        if (cachedData) {
+        if (this.cache.has(url)) {
             logger.debug('cache hit', 'HtmlRepositoryImpl findByFilename', filename);
-            return cachedData;
+            return this.cache.get(url);
         }
 
         try {

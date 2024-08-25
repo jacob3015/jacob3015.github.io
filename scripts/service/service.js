@@ -12,7 +12,6 @@ class ImageService {
 class JsonService {
     async findTopics() { throw new MethodNotImplementedError('findTopics is not implemented', 'JsonService'); }
     async findQuestionsByTopic(topic) { throw new MethodNotImplementedError('findQuestionsByTopic is not implemented', 'JsonService'); }
-    getRandomIndices(list, number) { throw new MethodNotImplementedError('getRandomIndices is not implemented', 'JsonService'); }
 }
 
 class MarkdownService {
@@ -20,6 +19,12 @@ class MarkdownService {
 }
 
 class WavService {
+    async findAudioSource (topic, questionNo) { throw new MethodNotImplementedError('findAudioSource is not implement', 'WavService'); }
+}
+
+class EspService {
+    async createQuestionList() { throw new MethodNotImplementedError('createQuestionList is not implemented', 'EspService'); }
+    getRandomIndices(array, number) { throw new MethodNotImplementedError('getRandomIndices is not implemented', 'EspService'); }
 }
 
 export {
@@ -27,5 +32,6 @@ export {
     ImageService,
     JsonService,
     MarkdownService,
-    WavService
+    WavService,
+    EspService
 }

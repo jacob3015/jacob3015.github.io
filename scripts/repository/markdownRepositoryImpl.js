@@ -23,10 +23,9 @@ class MarkdownRepositoryImpl extends MarkdownRepository {
 
         const url = `${this.baseUrl}/${filename}.md`;
 
-        const cachedData = this.cache.get(url);
-        if (cachedData) {
+        if (this.cache.has(url)) {
             logger.debug('cache hit', 'MarkdownRepositoryImpl findByFilename', filename);
-            return cachedData;
+            return this.cache.get(url);
         }
 
         try {
@@ -53,10 +52,9 @@ class MarkdownRepositoryImpl extends MarkdownRepository {
 
         const url = `${this.baseUrl}/posts/${filename}.md`;
 
-        const cachedData = this.cache.get(url);
-        if (cachedData) {
+        if (this.cache.has(url)) {
             logger.debug('cache hit', 'MarkdownRepositoryImpl findByFilename', filename);
-            return cachedData;
+            return this.cache.get(url);
         }
 
         try {

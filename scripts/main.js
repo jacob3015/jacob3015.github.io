@@ -6,9 +6,13 @@ import MarkdownRepositoryImpl from 'markdown-repository-impl';
 import WavRepositoryImpl from 'wav-repository-impl';
 import HtmlServiceImpl from 'html-service-impl';
 import MarkdownServiceImpl from 'markdown-service-impl';
+import EspServiceImpl from 'esp-service-impl';
+import JsonServiceImpl from 'json-service-impl';
+import WavServiceImpl from 'wav-service-impl';
 import LayoutComponent from 'layout-component';
 import AboutComponent from 'about-component';
 import ProjectListComponent from 'project-list-component';
+import EspComponent from 'esp-component';
 import Router from 'router';
 import App from 'app';
 
@@ -21,10 +25,14 @@ const wavRepository = new WavRepositoryImpl(baseUrl, blobFetcher);
 
 const htmlService = new HtmlServiceImpl(htmlRepository);
 const markdownService = new MarkdownServiceImpl(markdownRepository);
+const jsonService = new JsonServiceImpl(jsonRepository);
+const wavService = new WavServiceImpl(wavRepository);
+const espService = new EspServiceImpl(jsonService);
 
 const layoutComponent = new LayoutComponent(htmlService);
 const aboutComponent = new AboutComponent(markdownService);
 const projectListComponent = new ProjectListComponent(htmlService);
+const espComponent = new EspComponent(espService, wavService);
 
 const router = new Router([
     {
@@ -45,7 +53,7 @@ const router = new Router([
     {
         path: '/project-list/esp',
         target: 'contents-container',
-        component: aboutComponent
+        component: espComponent
     }
 ]);
 

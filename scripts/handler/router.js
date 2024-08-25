@@ -25,6 +25,8 @@ class Router {
                 this.renderBaseOnHash();
             }
         });
+
+        this.currentComponent = undefined;
     }
 
     updateHash(hash) {
@@ -36,15 +38,25 @@ class Router {
 
     renderBaseOnHash() {
         logger.debug('', 'Router renderBaseOnHash');
+
+        if (this.hasCleanBuffer()) {
+            this.currentComponent.cleanBuffer();
+        }
         
         const path = location.hash.replace('#', '');
         const route = this.routes.filter((route) => route.path === path);
         const target = document.getElementById(route[0].target);
         if (target) {
             route[0].component.render(target);
+            this.currentComponent = route[0].component;
         } else {
             logger.info('target not found', 'Router renderBaseOnHash');
         }
+    }
+
+    // TODO: check more strictly
+    hasCleanBuffer() {
+        return this.currentComponent && this.currentComponent.cleanBuffer;
     }
 }
 

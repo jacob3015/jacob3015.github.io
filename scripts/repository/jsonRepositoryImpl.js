@@ -6,6 +6,8 @@ class JsonRepositoryImpl extends JsonRepository {
     constructor(baseUrl, fetcher) {
         logger.debug('', 'JsonRepositoryImpl constructor', baseUrl, fetcher);
         super(`${baseUrl}/assets/json`, fetcher);
+
+        this.cache = new Map();
     }
 
     /**
@@ -22,8 +24,16 @@ class JsonRepositoryImpl extends JsonRepository {
         logger.debug('', 'JsonRepositoryImpl findByFilename', filename);
 
         const url = `${this.baseUrl}/${filename}.json`;
+
+        if (this.cache.has(url)) {
+            logger.debug('cache hit', 'JsonRepositoryImpl findByFilename', filename);
+            return this.cache.get(url);
+        }
+
         try {
-            return this.fetcher.fetch(url);
+            const data = this.fetcher.fetch(url);
+            this.cache.set(url, data);
+            return data;
         } catch (error) {
             logger.error(error, `failed to fetch ${url}`, 'JsonRepositoryImpl findByFilename', filename);
             throw error;
@@ -44,8 +54,16 @@ class JsonRepositoryImpl extends JsonRepository {
         logger.debug('', 'JsonRepositoryImpl findQuestionsByFilename', filename);
 
         const url = `${this.baseUrl}/questions/${filename}.json`;
+
+        if (this.cache.has(url)) {
+            logger.debug('cache hit', 'JsonRepositoryImpl findQuestionsByFilename', filename);
+            return this.cache.get(url);
+        }
+
         try {
-            return this.fetcher.fetch(url);
+            const data = this.fetcher.fetch(url);
+            this.cache.set(url, data);
+            return data;
         } catch (error) {
             logger.error(error, `failed to fetch ${url}`, 'JsonRepositoryImpl findQuestionsByFilename', filename);
             throw error;
