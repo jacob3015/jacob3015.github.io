@@ -23,6 +23,8 @@
                 "marked": "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js",
                 "custom-logger": "./scripts/util/customLogger.js",
                 "custom-fetcher": "./scripts/util/customFetcher.js",
+                "event-factory": "./scripts/util/eventFactory.js",
+                "event-dispatcher": "./scripts/util/eventDispatcher.js",
                 "http-error": "./scripts/error/httpError.js",
                 "element-not-found-error": "./scripts/error/elementNotFoundError.js",
                 "method-not-implemented-error": "./scripts/error/methodNotImplementedError.js",
@@ -33,13 +35,21 @@
                 "markdown-repository-impl": "./scripts/repository/markdownRepositoryImpl.js",
                 "wav-repository-impl": "./scripts/repository/wavRepositoryImpl.js",
                 "service": "./scripts/service/service.js",
+                "esp-service-impl": "./scripts/service/espServiceImpl.js",
                 "html-service-impl": "./scripts/service/htmlServiceImpl.js",
                 "json-service-impl": "./scripts/service/jsonServiceImpl.js",
+                "markdown-service-impl": "./scripts/service/markdownServiceImpl.js",
+                "wav-service-impl": "./scripts/service/wavServiceImpl.js",
                 "layout-component": "./scripts/component/layoutComponent.js",
-                "question-component": "./scripts/component/questionComponent.js"
+                "about-component": "./scripts/component/aboutComponent.js",
+                "esp-component": "./scripts/component/espComponent.js",
+                "project-list-component": "./scripts/component/projectListComponent.js",
+                "router": "./scripts/handler/router.js",
+                "app": "./scripts/app/app.js"
             }
         }
     </script>
     <script type="module" src="./scripts/main.js"></script>
+    <div id="app"></div>
 </body>
 </html>

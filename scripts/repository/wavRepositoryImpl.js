@@ -6,6 +6,8 @@ class WavRepositoryImpl extends WavRepository {
     constructor(baseUrl, fetcher) {
         logger.debug('', 'WavRepository constructor', baseUrl, fetcher);
         super(`${baseUrl}/assets/wav`, fetcher);
+
+        this.cache = new Map();
     }
 
     /**
@@ -21,8 +23,16 @@ class WavRepositoryImpl extends WavRepository {
         logger.debug('', 'WavRepositoryImpl findByFilename', filename);
 
         const url = `${this.baseUrl}/${filename}.wav`;
+
+        if (this.cache.has(url)) {
+            logger.debug('cache hit', 'WavRepositoryImpl findByFilename', filename);
+            return this.cache.get(url);
+        }
+
         try {
-            return this.fetcher.fetch(url);
+            const data = this.fetcher.fetch(url);
+            this.cache.set(url, data);
+            return data;
         } catch (error) {
             logger.error(error, `failed to fetch ${url}`, 'WavRepositoryImpl findByFilename', filename);
             throw error;
@@ -43,8 +53,16 @@ class WavRepositoryImpl extends WavRepository {
         logger.debug('', 'WavRepositoryImpl findByTopicAndFilename', topic, filename);
 
         const url = `${this.baseUrl}/${topic}/${filename}.wav`;
+
+        if (this.cache.has(url)) {
+            logger.debug('cache hit', 'WavRepositoryImpl findByTopicAndFilename', filename);
+            return this.cache.get(url);
+        }
+
         try {
-            return this.fetcher.fetch(url);
+            const data = this.fetcher.fetch(url);
+            this.cache.set(url, data);
+            return data;
         } catch (error) {
             logger.error(error, `failed to fetch ${url}`, 'WavRepositoryImpl findByTopicAndFilename', topic, filename);
             throw error;

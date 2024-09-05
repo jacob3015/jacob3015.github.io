@@ -6,6 +6,7 @@ class HtmlRepositoryImpl extends HtmlRepository {
     constructor(baseUrl, fetcher) {
         logger.debug('', 'HtmlRepositoryImpl constructor', baseUrl, fetcher);
         super(`${baseUrl}/assets/html`, fetcher);
+        this.cache = new Map();
     }
 
     /**
@@ -21,8 +22,16 @@ class HtmlRepositoryImpl extends HtmlRepository {
         logger.debug('', 'HtmlRepositoryImpl findByFilename', filename);
 
         const url = `${this.baseUrl}/${filename}.html`;
+
+        if (this.cache.has(url)) {
+            logger.debug('cache hit', 'HtmlRepositoryImpl findByFilename', filename);
+            return this.cache.get(url);
+        }
+
         try {
-            return this.fetcher.fetch(url);
+            const data = this.fetcher.fetch(url);
+            this.cache.set(url, data);
+            return data;
         } catch (error) {
             logger.error(error, `failed to fetch ${url}`, 'HtmlRepositoryImpl findByFilename', filename);
             throw error;
@@ -42,8 +51,16 @@ class HtmlRepositoryImpl extends HtmlRepository {
         logger.debug('', 'HtmlRepositoryImpl findTemplateByFilename', filename);
 
         const url = `${this.baseUrl}/templates/${filename}.html`;
+
+        if (this.cache.has(url)) {
+            logger.debug('cache hit', 'HtmlRepositoryImpl findByFilename', filename);
+            return this.cache.get(url);
+        }
+
         try {
-            return this.fetcher.fetch(url);
+            const data = this.fetcher.fetch(url);
+            this.cache.set(url, data);
+            return data;
         } catch (error) {
             logger.error(error, `failed to fetch ${url}`, 'HtmlRepositoryImpl findTemplateByFilename', filename);
             throw error;
