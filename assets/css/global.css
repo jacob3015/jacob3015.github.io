@@ -229,3 +229,25 @@ code {
   background-color: var(--accent-subtle);
   color: var(--accent-primary);
 }
+
+/* View Transitions (Cross-document Navigation & Motion Accessibility) */
+@view-transition {
+  navigation: auto;
+}
+
+site-header {
+  view-transition-name: site-header;
+}
+
+site-footer {
+  view-transition-name: site-footer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+

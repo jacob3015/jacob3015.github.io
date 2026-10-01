@@ -1,0 +1,34 @@
+name: Validate Posts Manifest
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'data/posts.json'
+      - 'posts/**'
+      - 'scripts/validate-posts.mjs'
+      - '.github/workflows/validate-posts.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'data/posts.json'
+      - 'posts/**'
+      - 'scripts/validate-posts.mjs'
+      - '.github/workflows/validate-posts.yml'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Posts Manifest Validation
+        run: node scripts/validate-posts.mjs

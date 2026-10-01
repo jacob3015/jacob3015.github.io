@@ -1,6 +1,7 @@
 /**
  * Showcase Application Script
  * Fetches posts manifest and renders interactive card grid with search & filter.
+ * Supports View Transitions API and keyboard shortcuts.
  */
 
 class ShowcaseApp {
@@ -21,6 +22,7 @@ class ShowcaseApp {
     await this.fetchPosts();
     this.setupFilters();
     this.setupSearch();
+    this.setupKeyboardShortcuts();
     this.render();
   }
 
@@ -80,7 +82,7 @@ class ShowcaseApp {
         this.activeCategory = cat;
         this.updateFilterButtons();
         this.updateUrlParams();
-        this.render();
+        this.transitionRender();
       });
 
       this.filterContainer.appendChild(btn);
@@ -107,8 +109,30 @@ class ShowcaseApp {
       debounceTimer = setTimeout(() => {
         this.searchQuery = e.target.value.trim().toLowerCase();
         this.updateUrlParams();
-        this.render();
-      }, 200);
+        this.transitionRender();
+      }, 150);
+    });
+  }
+
+  setupKeyboardShortcuts() {
+    window.addEventListener('keydown', (e) => {
+      // Focus search with '/' key
+      if (e.key === '/' && document.activeElement !== this.searchInput && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) {
+        e.preventDefault();
+        this.searchInput?.focus();
+        this.searchInput?.select();
+      }
+
+      // Clear search with Escape
+      if (e.key === 'Escape' && document.activeElement === this.searchInput) {
+        if (this.searchInput.value) {
+          this.searchInput.value = '';
+          this.searchQuery = '';
+          this.updateUrlParams();
+          this.transitionRender();
+        }
+        this.searchInput.blur();
+      }
     });
   }
 
@@ -129,6 +153,18 @@ class ShowcaseApp {
 
       return title.includes(this.searchQuery) || desc.includes(this.searchQuery) || tags.includes(this.searchQuery);
     });
+  }
+
+  transitionRender() {
+    // Utilize View Transitions API if supported and user allows motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (document.startViewTransition && !prefersReducedMotion) {
+      document.startViewTransition(() => {
+        this.render();
+      });
+    } else {
+      this.render();
+    }
   }
 
   render() {

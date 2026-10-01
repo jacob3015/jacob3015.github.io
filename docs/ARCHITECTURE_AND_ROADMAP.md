@@ -193,5 +193,5 @@ flowchart TD
 - [x] `data/posts.json`에 등록 후 메인 쇼케이스와의 연동 및 GitHub Pages 서빙 검증.
 
 ### 📌 Phase 5: 자동화 및 고도화 (Automation & Polish)
-- [ ] `.github/workflows/validate-posts.yml` 추가: `posts.json`의 스키마 유효성 및 링크 깨짐 검사.
-- [ ] 포스트 검색 기능 및 뷰 전환 애니메이션(View Transitions API) 적용.
+- [x] `.github/workflows/validate-posts.yml` 추가: `posts.json`의 스키마 유효성 및 링크 깨짐 검사.
+- [x] 포스트 검색 기능 및 뷰 전환 애니메이션(View Transitions API) 적용.
