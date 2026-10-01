@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- favicons -->
+    <link rel="icon" href="/assets/img/icons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="icon" href="/assets/img/icons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/assets/img/icons/favicon.ico" sizes="48x48" type="image/x-icon">
+    <link rel="manifest" href="/assets/img/icons/site.webmanifest">
+    <link rel="apple-touch-icon" href="/assets/img/icons/apple-touch-icon.png">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/css/global.css">
+
+    <!-- Web Components -->
+    <script type="module" src="/assets/js/site-components.js"></script>
+
+    <title>Page Not Found | Jacob's Interactive Web Lab</title>
+
+    <style>
+      .error-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        min-height: 60vh;
+        padding: var(--space-3xl) var(--space-md);
+      }
+
+      .error-code {
+        font-size: clamp(5rem, 15vw, 8rem);
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -0.05em;
+        background: linear-gradient(135deg, var(--accent-primary), #8b5cf6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: var(--space-md);
+      }
+
+      .error-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: var(--space-sm);
+      }
+
+      .error-desc {
+        max-width: 480px;
+        color: var(--text-secondary);
+        font-size: 1.05rem;
+        margin-bottom: var(--space-xl);
+      }
+    </style>
+</head>
+<body>
+    <site-header></site-header>
+
+    <main class="container">
+        <section class="error-container">
+            <div class="error-code">404</div>
+            <h1 class="error-title">페이지를 찾을 수 없습니다</h1>
+            <p class="error-desc">
+                요청하신 인터랙티브 컨텐츠가 존재하지 않거나, 주소가 변경되었을 수 있습니다.
+            </p>
+            <div style="display: flex; gap: var(--space-sm);">
+                <a href="/" class="btn btn-primary">홈으로 돌아가기</a>
+                <a href="https://github.com/jacob3015/jacob3015.github.io" target="_blank" rel="noopener noreferrer" class="btn btn-outline">GitHub 저장소</a>
+            </div>
+        </section>
+    </main>
+
+    <site-footer></site-footer>
+</body>
+</html>

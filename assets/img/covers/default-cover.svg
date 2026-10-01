@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" width="100%" height="100%">
+  <defs>
+    <linearGradient id="default-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    <linearGradient id="accent-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#8b5cf6" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="360" fill="url(#default-bg)" rx="16" />
+
+  <!-- Geometric Decorative Lines -->
+  <circle cx="300" cy="180" r="110" fill="none" stroke="rgba(59, 130, 246, 0.2)" stroke-width="2" />
+  <circle cx="300" cy="180" r="70" fill="none" stroke="rgba(139, 92, 246, 0.3)" stroke-width="2" stroke-dasharray="6" />
+
+  <!-- Center Symbol: Code & Sparkle -->
+  <g transform="translate(260, 140)">
+    <path d="M20 15 L5 40 L20 65" fill="none" stroke="url(#accent-grad)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M60 15 L75 40 L60 65" fill="none" stroke="url(#accent-grad)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+    <line x1="48" y1="15" x2="32" y2="65" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" />
+  </g>
+
+  <!-- Badge Text -->
+  <text x="300" y="270" text-anchor="middle" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="14" font-weight="600" letter-spacing="2">INTERACTIVE APPLET</text>
+</svg>

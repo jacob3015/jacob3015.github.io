@@ -11,38 +11,65 @@
     <link rel="manifest" href="/assets/img/icons/site.webmanifest">
     <link rel="apple-touch-icon" href="/assets/img/icons/apple-touch-icon.png">
 
-    <!-- Base & Global Styles -->
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="/assets/css/reset.css">
     <link rel="stylesheet" href="/assets/css/global.css">
+    <link rel="stylesheet" href="/assets/css/showcase.css">
 
-    <!-- Shared Web Components -->
+    <!-- Web Components & Application Scripts -->
     <script type="module" src="/assets/js/site-components.js"></script>
+    <script type="module" src="/assets/js/showcase.js"></script>
 
     <title>Jacob's Interactive Web Lab</title>
 </head>
 <body>
     <site-header></site-header>
 
-    <main id="app" class="container" style="padding-top: var(--space-2xl); padding-bottom: var(--space-2xl);">
-        <header style="margin-bottom: var(--space-xl);">
-            <div style="display: flex; gap: var(--space-sm); align-items: center; margin-bottom: var(--space-sm);">
+    <main class="container">
+        <!-- Hero & Profile Section -->
+        <section class="hero">
+            <div class="hero-badges">
                 <span class="badge">Pure Web Standards</span>
                 <span class="badge" style="background-color: var(--accent-subtle); color: var(--accent-primary);">Zero Build</span>
+                <span class="badge" style="background-color: rgba(16, 185, 129, 0.12); color: #059669;">AI-Agent Managed</span>
             </div>
-            <h1>Jacob's Interactive Web Lab</h1>
-            <p style="font-size: 1.15rem; margin-top: var(--space-xs); max-width: 650px;">
-                AI 에이전트 자율 관리 기반의 순수 웹 표준 클라이언트 사이드 인터랙티브 블로그입니다.
-            </p>
-        </header>
 
-        <section id="content" style="border: 1px dashed var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-xl); background-color: var(--bg-surface);">
-            <h2 style="font-size: 1.25rem; margin-bottom: var(--space-sm);">기반 시스템 구축 완료 (Phase 2)</h2>
-            <p style="margin-bottom: var(--space-md);">
-                모던 CSS 리셋, 글로벌 테마 디자인 토큰(다크/라이트 모드 지원), 공통 Web Components(<code>&lt;site-header&gt;</code>, <code>&lt;site-footer&gt;</code>), 그리고 <code>data/posts.json</code> 메타데이터 스키마가 성공적으로 구성되었습니다.
+            <h1 class="hero-title">Jacob's Interactive Web Lab</h1>
+            <p class="hero-description">
+                텍스트 중심의 블로그에서 벗어나, 서버 없이 클라이언트 브라우저에서 직접 상호작용하는
+                시각화·시뮬레이션·도구형 정적 웹 컨텐츠를 AI 에이전트와 함께 구축하고 실험하는 공간입니다.
             </p>
-            <p>
-                상단의 테마 전환 버튼(☀️/🌙)을 눌러 다크/라이트 모드가 즉각 반응하는지 확인하실 수 있습니다. 다음 단계인 <strong>Phase 3(쇼케이스 메인 페이지 개편)</strong>에서 동적 카드 그리드와 필터링이 구현될 예정입니다.
-            </p>
+
+            <div class="hero-profile">
+                <div class="profile-avatar">J</div>
+                <div class="profile-info">
+                    <h3>Jacob (Jaimin Pak)</h3>
+                    <p>Backend Engineer & Web Explorer • Java, gRPC, Vanilla Web Standards</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Controls: Filters & Search -->
+        <section class="controls-bar" aria-label="컨텐츠 검색 및 필터">
+            <div class="category-filters" id="category-filters" role="tablist">
+                <!-- Dynamically populated by showcase.js -->
+            </div>
+
+            <div style="display: flex; align-items: center; gap: var(--space-md); justify-content: space-between;">
+                <div class="search-box">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="search" id="search-input" class="search-input" placeholder="포스트 검색..." aria-label="포스트 검색">
+                </div>
+                <span class="posts-count" id="posts-count">0 posts</span>
+            </div>
+        </section>
+
+        <!-- Interactive Posts Grid -->
+        <section class="posts-grid" id="posts-grid" aria-live="polite">
+            <!-- Dynamically populated by showcase.js -->
         </section>
     </main>
 
