@@ -11,20 +11,41 @@
     <link rel="manifest" href="/assets/img/icons/site.webmanifest">
     <link rel="apple-touch-icon" href="/assets/img/icons/apple-touch-icon.png">
 
-    <!-- styles -->
-    <link rel="stylesheet" href="/styles/layouts.css">
+    <!-- Base & Global Styles -->
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/css/global.css">
+
+    <!-- Shared Web Components -->
+    <script type="module" src="/assets/js/site-components.js"></script>
 
     <title>Jacob's Interactive Web Lab</title>
 </head>
 <body>
-    <main id="app">
-        <header>
+    <site-header></site-header>
+
+    <main id="app" class="container" style="padding-top: var(--space-2xl); padding-bottom: var(--space-2xl);">
+        <header style="margin-bottom: var(--space-xl);">
+            <div style="display: flex; gap: var(--space-sm); align-items: center; margin-bottom: var(--space-sm);">
+                <span class="badge">Pure Web Standards</span>
+                <span class="badge" style="background-color: var(--accent-subtle); color: var(--accent-primary);">Zero Build</span>
+            </div>
             <h1>Jacob's Interactive Web Lab</h1>
-            <p>AI 에이전트 자율 관리 기반의 순수 웹 표준 인터랙티브 블로그</p>
+            <p style="font-size: 1.15rem; margin-top: var(--space-xs); max-width: 650px;">
+                AI 에이전트 자율 관리 기반의 순수 웹 표준 클라이언트 사이드 인터랙티브 블로그입니다.
+            </p>
         </header>
-        <section id="content">
-            <p>프로젝트 전환 작업이 진행 중입니다. (Phase 1 완료)</p>
+
+        <section id="content" style="border: 1px dashed var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-xl); background-color: var(--bg-surface);">
+            <h2 style="font-size: 1.25rem; margin-bottom: var(--space-sm);">기반 시스템 구축 완료 (Phase 2)</h2>
+            <p style="margin-bottom: var(--space-md);">
+                모던 CSS 리셋, 글로벌 테마 디자인 토큰(다크/라이트 모드 지원), 공통 Web Components(<code>&lt;site-header&gt;</code>, <code>&lt;site-footer&gt;</code>), 그리고 <code>data/posts.json</code> 메타데이터 스키마가 성공적으로 구성되었습니다.
+            </p>
+            <p>
+                상단의 테마 전환 버튼(☀️/🌙)을 눌러 다크/라이트 모드가 즉각 반응하는지 확인하실 수 있습니다. 다음 단계인 <strong>Phase 3(쇼케이스 메인 페이지 개편)</strong>에서 동적 카드 그리드와 필터링이 구현될 예정입니다.
+            </p>
         </section>
     </main>
+
+    <site-footer></site-footer>
 </body>
 </html>

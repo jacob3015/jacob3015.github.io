@@ -177,9 +177,9 @@ flowchart TD
 - [x] `index.html`에서 불필요한 `importmap` 및 `marked.js` CDN 링크 제거.
 
 ### 📌 Phase 2: 기반 시스템 구축 (Foundation)
-- [ ] `assets/css/reset.css` 및 `assets/css/global.css` (다크모드/라이트모드 CSS 변수, 타이포그래피) 작성.
-- [ ] `assets/js/site-components.js` 작성 (공통 `<site-header>`, `<site-footer>` Web Components).
-- [ ] `data/posts.json` 기본 구조 생성.
+- [x] `assets/css/reset.css` 및 `assets/css/global.css` (다크모드/라이트모드 CSS 변수, 타이포그래피) 작성.
+- [x] `assets/js/site-components.js` 작성 (공통 `<site-header>`, `<site-footer>` Web Components).
+- [x] `data/posts.json` 기본 구조 생성.
 
 ### 📌 Phase 3: 메인 쇼케이스 개편 (Showcase Home)
 - [ ] `index.html`을 모던 시맨틱 마크업으로 개편.

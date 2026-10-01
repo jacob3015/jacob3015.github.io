@@ -1,0 +1,15 @@
+[
+  {
+    "id": "sorting-visualizer",
+    "title": "Interactive Sorting Algorithm Visualizer",
+    "description": "다양한 정렬 알고리즘(버블, 퀵, 병합 등)의 동작 과정을 클라이언트 사이드에서 시각화하고 속도 및 데이터 크기를 직접 조절해보는 인터랙티브 웹앱",
+    "category": "Algorithm",
+    "tags": ["Visualization", "Algorithms", "Canvas", "Interactive"],
+    "path": "/posts/sorting-visualizer/",
+    "createdAt": "2026-10-01",
+    "thumbnail": "/assets/img/covers/sorting-visualizer.svg",
+    "interactiveFeatures": ["실시간 캔버스 렌더링", "재생/일시정지/스텝 실행", "알고리즘 비교"],
+    "featured": true,
+    "status": "ready_for_phase4"
+  }
+]
