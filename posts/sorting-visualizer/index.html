@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- favicons -->
+    <link rel="icon" href="/assets/img/icons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="icon" href="/assets/img/icons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/assets/img/icons/favicon.ico" sizes="48x48" type="image/x-icon">
+    <link rel="manifest" href="/assets/img/icons/site.webmanifest">
+    <link rel="apple-touch-icon" href="/assets/img/icons/apple-touch-icon.png">
+
+    <!-- Global Styles & Web Components -->
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/css/global.css">
+    <script type="module" src="/assets/js/site-components.js"></script>
+
+    <!-- Post-specific Style -->
+    <link rel="stylesheet" href="./style.css">
+
+    <title>정렬 알고리즘 시각화 | Jacob's Interactive Web Lab</title>
+</head>
+<body>
+    <site-header></site-header>
+
+    <main class="container">
+        <!-- Breadcrumb & Header -->
+        <header class="post-header">
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="/">Home</a>
+                <span>/</span>
+                <span>Algorithm</span>
+                <span>/</span>
+                <span>Sorting Visualizer</span>
+            </nav>
+            <h1 class="post-title">Interactive Sorting Algorithm Visualizer</h1>
+            <p class="post-lead">
+                다양한 정렬 알고리즘의 동작 과정을 클라이언트 사이드 HTML5 Canvas에서 실시간으로 시각화합니다.
+                배열 크기와 속도를 조절하고, 단계별(Step-by-step) 실행을 통해 알고리즘의 세부 동작을 분석해 보세요.
+            </p>
+        </header>
+
+        <!-- Visualizer Interactive Applet -->
+        <section class="visualizer-wrapper" aria-label="정렬 알고리즘 시각화 위젯">
+            <!-- Controls Panel -->
+            <div class="controls-grid">
+                <div class="control-group">
+                    <label for="algo-select" class="control-label">알고리즘 선택</label>
+                    <select id="algo-select" class="control-select">
+                        <option value="bubble">버블 정렬 (Bubble Sort)</option>
+                        <option value="selection">선택 정렬 (Selection Sort)</option>
+                        <option value="insertion">삽입 정렬 (Insertion Sort)</option>
+                        <option value="quick" selected>퀵 정렬 (Quick Sort)</option>
+                        <option value="merge">병합 정렬 (Merge Sort)</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="size-slider" class="control-label">
+                        배열 크기: <span id="size-val">50</span>
+                    </label>
+                    <input type="range" id="size-slider" class="control-slider" min="10" max="120" value="50" step="5">
+                </div>
+
+                <div class="control-group">
+                    <label for="speed-slider" class="control-label">
+                        실행 속도: <span id="speed-val">5x</span>
+                    </label>
+                    <input type="range" id="speed-slider" class="control-slider" min="1" max="10" value="5" step="1">
+                </div>
+
+                <div class="button-group">
+                    <button id="start-btn" class="btn btn-primary">정렬 시작 (Start)</button>
+                    <button id="pause-btn" class="btn btn-outline" disabled>일시정지 (Pause)</button>
+                    <button id="step-btn" class="btn btn-outline">한 단계씩 (Step)</button>
+                    <button id="reset-btn" class="btn btn-outline">배열 섞기 (Randomize)</button>
+                </div>
+            </div>
+
+            <!-- Real-time Metrics Bar -->
+            <div class="metrics-bar">
+                <div class="metric-item">
+                    <span class="metric-label">상태:</span>
+                    <span id="status-badge" class="status-badge status-idle">IDLE</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">비교 횟수:</span>
+                    <span id="metric-comp" class="metric-value">0</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">교환/배열접근:</span>
+                    <span id="metric-swap" class="metric-value">0</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">경과 시간:</span>
+                    <span id="metric-time" class="metric-value">0.0s</span>
+                </div>
+            </div>
+
+            <!-- Canvas Viewport -->
+            <div class="canvas-container">
+                <canvas id="sort-canvas"></canvas>
+            </div>
+
+            <!-- Color Legend -->
+            <div class="legend-bar">
+                <div class="legend-item">
+                    <span class="legend-dot" style="background-color: var(--accent-primary);"></span>
+                    <span>대기 상태</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot" style="background-color: #f59e0b;"></span>
+                    <span>비교 중 (Comparing)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot" style="background-color: #ef4444;"></span>
+                    <span>교환 중 (Swapping/Writing)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot" style="background-color: #10b981;"></span>
+                    <span>정렬 완료 (Sorted)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Algorithm Analysis & Complexity Table -->
+        <article class="explanation-section">
+            <h2>알고리즘 복잡도 및 특징 비교</h2>
+            <p>
+                각 정렬 알고리즘은 데이터의 분포와 크기, 그리고 추가 메모리 허용 여부에 따라 성능 차이가 크게 발생합니다.
+                아래 표는 각 알고리즘의 이론적 시간 및 공간 복잡도를 요약한 것입니다.
+            </p>
+
+            <div class="table-responsive">
+                <table class="complexity-table">
+                    <thead>
+                        <tr>
+                            <th>알고리즘</th>
+                            <th>최선 시간복잡도</th>
+                            <th>평균 시간복잡도</th>
+                            <th>최악 시간복잡도</th>
+                            <th>공간 복잡도</th>
+                            <th>안정 정렬 여부</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>퀵 정렬 (Quick)</strong></td>
+                            <td><code>O(n log n)</code></td>
+                            <td><code>O(n log n)</code></td>
+                            <td><code>O(n²)</code></td>
+                            <td><code>O(log n)</code></td>
+                            <td>불안정 (Unstable)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>병합 정렬 (Merge)</strong></td>
+                            <td><code>O(n log n)</code></td>
+                            <td><code>O(n log n)</code></td>
+                            <td><code>O(n log n)</code></td>
+                            <td><code>O(n)</code></td>
+                            <td>안정 (Stable)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>삽입 정렬 (Insertion)</strong></td>
+                            <td><code>O(n)</code></td>
+                            <td><code>O(n²)</code></td>
+                            <td><code>O(n²)</code></td>
+                            <td><code>O(1)</code></td>
+                            <td>안정 (Stable)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>선택 정렬 (Selection)</strong></td>
+                            <td><code>O(n²)</code></td>
+                            <td><code>O(n²)</code></td>
+                            <td><code>O(n²)</code></td>
+                            <td><code>O(1)</code></td>
+                            <td>불안정 (Unstable)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>버블 정렬 (Bubble)</strong></td>
+                            <td><code>O(n)</code></td>
+                            <td><code>O(n²)</code></td>
+                            <td><code>O(n²)</code></td>
+                            <td><code>O(1)</code></td>
+                            <td>안정 (Stable)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p style="font-size: 0.9rem; color: var(--text-muted);">
+                💡 <em>팁: 배열 크기를 80 이상으로 늘리고 속도를 8x 이상으로 설정한 뒤 '퀵 정렬'과 '버블 정렬'의 비교/교환 횟수를 직접 대조해 보세요.</em>
+            </p>
+        </article>
+    </main>
+
+    <site-footer></site-footer>
+
+    <!-- Post Logic -->
+    <script type="module" src="./script.js"></script>
+</body>
+</html>

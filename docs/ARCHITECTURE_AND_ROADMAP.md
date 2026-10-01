@@ -188,9 +188,9 @@ flowchart TD
 - [x] `404.html` 안내 페이지 추가.
 
 ### 📌 Phase 4: AI 에이전트 가이드 수립 및 첫 인터랙티브 포스트 PoC (PoC & Guidelines)
-- [ ] 루트에 `AGENTS.md` 작성 (AI 에이전트가 컨텐츠를 생산할 때 따를 상세 가이드라인).
-- [ ] 첫 번째 인터랙티브 정적 웹 포스트 작성 (예: `posts/sorting-visualizer/` 또는 `posts/audio-synth/`).
-- [ ] `data/posts.json`에 등록 후 메인 쇼케이스와의 연동 및 GitHub Pages 서빙 검증.
+- [x] 루트에 `AGENTS.md` 작성 (AI 에이전트가 컨텐츠를 생산할 때 따를 상세 가이드라인).
+- [x] 첫 번째 인터랙티브 정적 웹 포스트 작성 (예: `posts/sorting-visualizer/` 또는 `posts/audio-synth/`).
+- [x] `data/posts.json`에 등록 후 메인 쇼케이스와의 연동 및 GitHub Pages 서빙 검증.
 
 ### 📌 Phase 5: 자동화 및 고도화 (Automation & Polish)
 - [ ] `.github/workflows/validate-posts.yml` 추가: `posts.json`의 스키마 유효성 및 링크 깨짐 검사.

@@ -10,6 +10,6 @@
     "thumbnail": "/assets/img/covers/sorting-visualizer.svg",
     "interactiveFeatures": ["실시간 캔버스 렌더링", "재생/일시정지/스텝 실행", "알고리즘 비교"],
     "featured": true,
-    "status": "ready_for_phase4"
+    "status": "published"
   }
 ]
