@@ -172,9 +172,9 @@ flowchart TD
 ```
 
 ### 📌 Phase 1: 레거시 정리 (Cleanup)
-- [ ] 그룹 A(과거 ESP 전용 wav 음원 파일 6개, 질문 json, 관련 스크립트) 삭제.
-- [ ] 그룹 B(과거 마크다운 파서, 백엔드식 인터페이스/에러 클래스, 레거시 템플릿) 삭제.
-- [ ] `index.html`에서 불필요한 `importmap` 및 `marked.js` CDN 링크 제거.
+- [x] 그룹 A(과거 ESP 전용 wav 음원 파일 6개, 질문 json, 관련 스크립트) 삭제.
+- [x] 그룹 B(과거 마크다운 파서, 백엔드식 인터페이스/에러 클래스, 레거시 템플릿) 삭제.
+- [x] `index.html`에서 불필요한 `importmap` 및 `marked.js` CDN 링크 제거.
 
 ### 📌 Phase 2: 기반 시스템 구축 (Foundation)
 - [ ] `assets/css/reset.css` 및 `assets/css/global.css` (다크모드/라이트모드 CSS 변수, 타이포그래피) 작성.
