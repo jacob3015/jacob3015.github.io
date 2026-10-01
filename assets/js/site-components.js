@@ -271,7 +271,6 @@ class SiteFooter extends HTMLElement {
         <div class="footer-links">
           <a href="/" class="footer-link">Home</a>
           <a href="https://github.com/jacob3015/jacob3015.github.io" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
-          <a href="/docs/ARCHITECTURE_AND_ROADMAP.md" class="footer-link">Architecture</a>
         </div>
       </footer>
     `;
