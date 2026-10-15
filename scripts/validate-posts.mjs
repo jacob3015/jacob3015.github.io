@@ -2,7 +2,7 @@
 
 /**
  * Validate Posts Manifest
- * Validates data/posts.json schema, file existence, and broken links.
+ * Validates data/posts.json schema, game resource taxonomy, file existence, and broken links.
  * Zero-dependency pure Node.js script.
  */
 
@@ -38,6 +38,14 @@ if (!Array.isArray(posts)) {
 }
 
 const REQUIRED_FIELDS = ['id', 'title', 'description', 'category', 'tags', 'path', 'createdAt'];
+const ALLOWED_CATEGORIES = [
+  'Lore & Story',
+  'Art & Visuals',
+  'Audio & Sound',
+  'Mechanics & Systems',
+  'Game Tools'
+];
+
 let errorsCount = 0;
 const seenIds = new Set();
 
@@ -61,15 +69,22 @@ posts.forEach((post, index) => {
     seenIds.add(post.id);
   }
 
-  // 3. Date format check (YYYY-MM-DD)
+  // 3. Category whitelist check
+  if (post.category && !ALLOWED_CATEGORIES.includes(post.category)) {
+    console.error(
+      `❌ ${postPrefix} Invalid category: "${post.category}". Must be one of: ${ALLOWED_CATEGORIES.join(', ')}`
+    );
+    errorsCount++;
+  }
+
+  // 4. Date format check (YYYY-MM-DD)
   if (post.createdAt && isNaN(Date.parse(post.createdAt))) {
     console.error(`❌ ${postPrefix} Invalid createdAt date: "${post.createdAt}"`);
     errorsCount++;
   }
 
-  // 4. Path file existence check
+  // 5. Path file existence check
   if (post.path) {
-    // Normalise path (e.g., /posts/slug/ -> posts/slug/index.html)
     let relativePath = post.path.replace(/^\//, '');
     if (relativePath.endsWith('/')) {
       relativePath += 'index.html';
@@ -82,7 +97,7 @@ posts.forEach((post, index) => {
     }
   }
 
-  // 5. Thumbnail file existence check (if provided)
+  // 6. Thumbnail file existence check (if provided)
   if (post.thumbnail) {
     const relativeThumb = post.thumbnail.replace(/^\//, '');
     const thumbPath = path.join(rootDir, relativeThumb);
@@ -92,9 +107,25 @@ posts.forEach((post, index) => {
     }
   }
 
-  // 6. Tags format check
+  // 7. Tags format check
   if (post.tags && !Array.isArray(post.tags)) {
     console.error(`❌ ${postPrefix} "tags" must be an array of strings.`);
+    errorsCount++;
+  }
+
+  // 8. Optional game resource fields validation
+  if (post.gameProject && typeof post.gameProject !== 'string') {
+    console.error(`❌ ${postPrefix} "gameProject" must be a string.`);
+    errorsCount++;
+  }
+
+  if (post.resourceType && typeof post.resourceType !== 'string') {
+    console.error(`❌ ${postPrefix} "resourceType" must be a string.`);
+    errorsCount++;
+  }
+
+  if (post.interactiveFeatures && !Array.isArray(post.interactiveFeatures)) {
+    console.error(`❌ ${postPrefix} "interactiveFeatures" must be an array of strings.`);
     errorsCount++;
   }
 });
@@ -104,6 +135,6 @@ if (errorsCount > 0) {
   console.error(`\n💥 Validation failed with ${errorsCount} error(s). Please fix the issues above.`);
   process.exit(1);
 } else {
-  console.log(`\n All ${posts.length} post(s) in data/posts.json are valid and all files exist!`);
+  console.log(`\n All ${posts.length} post(s) in data/posts.json are valid! (Empty manifest ready for first post)`);
   process.exit(0);
 }

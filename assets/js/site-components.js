@@ -154,8 +154,8 @@ class SiteHeader extends HTMLElement {
 
       <header class="header-container">
         <a href="/" class="brand">
-          <span>Jacob's Web Lab</span>
-          <span class="brand-badge">Pure Web</span>
+          <span>Jacob's Game Lab</span>
+          <span class="brand-badge">Game Resources</span>
         </a>
 
         <nav class="nav-links">
@@ -267,7 +267,7 @@ class SiteFooter extends HTMLElement {
       </style>
 
       <footer class="footer-container">
-        <p>© 2026 Jacob (Jaimin Pak). Built with Pure Web Standards & AI Agents.</p>
+        <p>© 2026 Jacob (Jaimin Pak). Interactive Game Development Resources & Prototypes.</p>
         <div class="footer-links">
           <a href="/" class="footer-link">Home</a>
           <a href="https://github.com/jacob3015/jacob3015.github.io" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>

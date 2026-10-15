@@ -195,3 +195,10 @@ flowchart TD
 ### 📌 Phase 5: 자동화 및 고도화 (Automation & Polish)
 - [x] `.github/workflows/validate-posts.yml` 추가: `posts.json`의 스키마 유효성 및 링크 깨짐 검사.
 - [x] 포스트 검색 기능 및 뷰 전환 애니메이션(View Transitions API) 적용.
+
+### 📌 Phase 6: 게임 리소스 랩 전환 (Game Dev Resource Hub Transition)
+- [x] 게임 개발에 필요한 종합 예술 리소스(세계관, 아트, 오디오, 서사, 메커닉) 분류 체계(5대 카테고리) 정립.
+- [x] 쇼케이스(`showcase.js`, `showcase.css`)에 게임 전용 고정 카테고리 탭, 게임 프로젝트명, 리소스 타입 뱃지 지원.
+- [x] `scripts/validate-posts.mjs`에 게임 리소스 카테고리 화이트리스트 및 확장 스키마 검증 반영.
+- [x] `AGENTS.md`에 3대 게임 리소스 템플릿(Canvas 시뮬레이터, 세계관/도감 Codex, Web Audio 랩) 및 미디어 최적화 지침 명시.
+- [x] 기존 샘플 포스트 정리 완료 및 첫 번째 게임 리소스 게시 준비 완료 상태 달성.

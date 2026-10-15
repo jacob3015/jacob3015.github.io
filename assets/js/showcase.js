@@ -1,8 +1,30 @@
 /**
  * Showcase Application Script
- * Fetches posts manifest and renders interactive card grid with search & filter.
- * Supports View Transitions API and keyboard shortcuts.
+ * Fetches game resources manifest and renders interactive card grid with search & filter.
+ * Supports View Transitions API, keyboard shortcuts, and game taxonomy.
  */
+
+const GAME_CATEGORIES = [
+  { id: 'all', label: 'All Resources' },
+  { id: 'Lore & Story', label: 'Lore & Story' },
+  { id: 'Art & Visuals', label: 'Art & Visuals' },
+  { id: 'Audio & Sound', label: 'Audio & Sound' },
+  { id: 'Mechanics & Systems', label: 'Mechanics & Systems' },
+  { id: 'Game Tools', label: 'Game Tools' }
+];
+
+const RESOURCE_TYPE_ICONS = {
+  'playable-prototype': '🎮',
+  'lore-codex': '📜',
+  'interactive-map': '🗺️',
+  'sprite-viewer': '🎨',
+  'shader-lab': '✨',
+  'audio-synth': '🎹',
+  'soundscape': '🔊',
+  'dialogue-tree': '💬',
+  'math-simulator': '📐',
+  'tool': '🛠️'
+};
 
 class ShowcaseApp {
   constructor() {
@@ -68,18 +90,24 @@ class ShowcaseApp {
   setupFilters() {
     if (!this.filterContainer) return;
 
-    // Extract unique categories
-    const categories = ['all', ...new Set(this.posts.map(p => p.category).filter(Boolean))];
+    // Use predefined GAME_CATEGORIES, plus any extra categories dynamically found in posts
+    const postCategories = this.posts.map(p => p.category).filter(Boolean);
+    const existingIds = new Set(GAME_CATEGORIES.map(c => c.id.toLowerCase()));
+    const dynamicCategories = [...new Set(postCategories)]
+      .filter(cat => !existingIds.has(cat.toLowerCase()))
+      .map(cat => ({ id: cat, label: cat }));
+
+    const allCategories = [...GAME_CATEGORIES, ...dynamicCategories];
 
     this.filterContainer.innerHTML = '';
-    categories.forEach(cat => {
+    allCategories.forEach(cat => {
       const btn = document.createElement('button');
-      btn.className = `filter-chip ${cat.toLowerCase() === this.activeCategory.toLowerCase() ? 'active' : ''}`;
-      btn.textContent = cat === 'all' ? 'All Posts' : cat;
-      btn.dataset.category = cat;
+      btn.className = `filter-chip ${cat.id.toLowerCase() === this.activeCategory.toLowerCase() ? 'active' : ''}`;
+      btn.textContent = cat.label;
+      btn.dataset.category = cat.id;
 
       btn.addEventListener('click', () => {
-        this.activeCategory = cat;
+        this.activeCategory = cat.id;
         this.updateFilterButtons();
         this.updateUrlParams();
         this.transitionRender();
@@ -150,8 +178,14 @@ class ShowcaseApp {
       const title = (post.title || '').toLowerCase();
       const desc = (post.description || '').toLowerCase();
       const tags = (post.tags || []).join(' ').toLowerCase();
+      const project = (post.gameProject || '').toLowerCase();
+      const type = (post.resourceType || '').toLowerCase();
 
-      return title.includes(this.searchQuery) || desc.includes(this.searchQuery) || tags.includes(this.searchQuery);
+      return title.includes(this.searchQuery) ||
+             desc.includes(this.searchQuery) ||
+             tags.includes(this.searchQuery) ||
+             project.includes(this.searchQuery) ||
+             type.includes(this.searchQuery);
     });
   }
 
@@ -174,7 +208,7 @@ class ShowcaseApp {
 
     // Update count badge
     if (this.countElement) {
-      this.countElement.textContent = `${filtered.length} ${filtered.length === 1 ? 'post' : 'posts'}`;
+      this.countElement.textContent = `${filtered.length} ${filtered.length === 1 ? 'resource' : 'resources'}`;
     }
 
     if (filtered.length === 0) {
@@ -214,21 +248,36 @@ class ShowcaseApp {
 
     const thumbnailSrc = post.thumbnail || '/assets/img/covers/default-cover.svg';
 
+    const typeIcon = RESOURCE_TYPE_ICONS[post.resourceType] || '🎲';
+    const typeHtml = post.resourceType 
+      ? `<span class="card-badge-type">${typeIcon} ${escapeHtml(post.resourceType)}</span>`
+      : '';
+
+    const projectHtml = post.gameProject 
+      ? `<span class="card-badge-project">${escapeHtml(post.gameProject)}</span>`
+      : '';
+
     card.innerHTML = `
       <div class="card-cover">
         <img src="${escapeHtml(thumbnailSrc)}" alt="${escapeHtml(post.title)}" loading="lazy" />
-        ${post.category ? `<span class="card-badge-category">${escapeHtml(post.category)}</span>` : ''}
+        <div class="card-cover-badges">
+          ${post.category ? `<span class="card-badge-category">${escapeHtml(post.category)}</span>` : ''}
+          ${projectHtml}
+        </div>
       </div>
       <div class="card-content">
         <div class="card-meta">
           <span>${formattedDate}</span>
-          ${post.featured ? '<span class="badge" style="font-size:0.7rem; padding:0.1rem 0.4rem;">Featured</span>' : ''}
+          <div style="display:flex; gap:0.35rem; align-items:center;">
+            ${typeHtml}
+            ${post.featured ? '<span class="badge" style="font-size:0.7rem; padding:0.1rem 0.4rem;">Featured</span>' : ''}
+          </div>
         </div>
         <h3 class="card-title">${escapeHtml(post.title)}</h3>
         <p class="card-desc">${escapeHtml(post.description || '')}</p>
         ${featuresHtml ? `<div class="card-features">${featuresHtml}</div>` : ''}
         <div class="card-action">
-          <span>Explore Applet</span>
+          <span>Open Resource</span>
           <span class="action-arrow">→</span>
         </div>
       </div>
@@ -238,13 +287,25 @@ class ShowcaseApp {
   }
 
   renderEmptyState() {
-    this.gridContainer.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-state-icon">🔍</div>
-        <h3>조건에 맞는 포스트를 찾을 수 없습니다</h3>
-        <p>다른 검색어를 입력하거나 필터를 'All Posts'로 변경해 보세요.</p>
-      </div>
-    `;
+    if (this.posts.length === 0) {
+      // Clean baseline state when no posts are published yet
+      this.gridContainer.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">🎮</div>
+          <h3>게임 리소스 아카이브 준비 중</h3>
+          <p>세계관 지도, 인터랙티브 스프라이트, 절차적 오디오 및 게임 메커닉 리소스가 곧 게재될 예정입니다.</p>
+        </div>
+      `;
+    } else {
+      // Empty search/filter result state
+      this.gridContainer.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">🔍</div>
+          <h3>조건에 맞는 게임 리소스를 찾을 수 없습니다</h3>
+          <p>다른 검색어를 입력하거나 필터를 'All Resources'로 변경해 보세요.</p>
+        </div>
+      `;
+    }
   }
 }
 
