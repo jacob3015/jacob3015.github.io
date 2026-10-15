@@ -45,8 +45,6 @@ jacob3015.github.io/
 ├── README.md                    # [본 문서] 프로젝트 소개 및 안내
 ├── data/
 │   └── posts.json               # 전체 게임 리소스 메타데이터 (단일 소스)
-├── docs/
-│   └── ARCHITECTURE_AND_ROADMAP.md # 상세 아키텍처 및 로드맵
 ├── assets/
 │   ├── css/
 │   │   ├── reset.css            # 모던 CSS 리셋
