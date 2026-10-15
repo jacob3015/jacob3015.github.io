@@ -59,14 +59,14 @@ Create a new folder `posts/<post-slug>/` with the following baseline template:
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Favicons -->
-  <link rel="icon" href="/assets/img/icons/favicon-16x16.png" sizes="16x16" type="image/png">
-  <link rel="icon" href="/assets/img/icons/favicon-32x32.png" sizes="32x32" type="image/png">
-  <link rel="icon" href="/assets/img/icons/favicon.ico" sizes="48x48" type="image/x-icon">
+  <link rel="icon" href="../../assets/img/icons/favicon-16x16.png" sizes="16x16" type="image/png">
+  <link rel="icon" href="../../assets/img/icons/favicon-32x32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="../../assets/img/icons/favicon.ico" sizes="48x48" type="image/x-icon">
 
   <!-- Global Base Styles & Web Components -->
-  <link rel="stylesheet" href="/assets/css/reset.css">
-  <link rel="stylesheet" href="/assets/css/global.css">
-  <script type="module" src="/assets/js/site-components.js"></script>
+  <link rel="stylesheet" href="../../assets/css/reset.css">
+  <link rel="stylesheet" href="../../assets/css/global.css">
+  <script type="module" src="../../assets/js/site-components.js"></script>
 
   <!-- Post-specific Stylesheet -->
   <link rel="stylesheet" href="./style.css">
@@ -79,7 +79,7 @@ Create a new folder `posts/<post-slug>/` with the following baseline template:
   <main class="container">
     <header class="post-header">
       <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="/">Home</a>
+        <a href="../../">Home</a>
         <span>/</span>
         <span>Lore & Story</span> <!-- Category -->
         <span>/</span>
@@ -165,4 +165,4 @@ node scripts/validate-posts.mjs
 | Use one of the 5 allowed categories in `data/posts.json`. | **Do NOT** create arbitrary category names that break filter tabs. |
 | Scope CSS to the post container or `./style.css`. | **Do NOT** edit `/assets/css/global.css` or `/assets/css/reset.css` for one specific post. |
 | Compress media into WebP / Ogg format or synthesize procedurally. | **Do NOT** commit heavy binary assets (> 1MB) directly to Git repository. |
-| Test links with leading absolute paths (e.g. `/assets/css/...`). | **Do NOT** use broken relative parent paths (e.g. `../../assets`). |
+| Use consistent relative paths (`../../assets/...` in posts, `./assets/...` in root). | **Do NOT** use leading absolute paths (`/assets/...`) which cause 404 in IntelliJ / subpath preview servers. |

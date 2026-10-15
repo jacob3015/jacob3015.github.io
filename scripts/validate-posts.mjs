@@ -135,6 +135,6 @@ if (errorsCount > 0) {
   console.error(`\n💥 Validation failed with ${errorsCount} error(s). Please fix the issues above.`);
   process.exit(1);
 } else {
-  console.log(`\n All ${posts.length} post(s) in data/posts.json are valid! (Empty manifest ready for first post)`);
+  console.log(`\n All ${posts.length} post(s) in data/posts.json are valid and all files exist!`);
   process.exit(0);
 }

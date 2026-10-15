@@ -39,6 +39,17 @@ const ThemeManager = {
 
 ThemeManager.init();
 
+const getHomeUrl = () => {
+  const pathname = window.location.pathname;
+  if (pathname.includes('/jacob3015-github-io/')) {
+    return '/jacob3015-github-io/';
+  }
+  if (pathname.includes('/posts/')) {
+    return '../../';
+  }
+  return '/';
+};
+
 class SiteHeader extends HTMLElement {
   constructor() {
     super();
@@ -53,6 +64,7 @@ class SiteHeader extends HTMLElement {
   render() {
     const currentTheme = ThemeManager.getCurrentTheme();
     const isDark = currentTheme === 'dark';
+    const homeUrl = getHomeUrl();
 
     this.shadowRoot.innerHTML = `
       <style>
@@ -153,13 +165,13 @@ class SiteHeader extends HTMLElement {
       </style>
 
       <header class="header-container">
-        <a href="/" class="brand">
+        <a href="${homeUrl}" class="brand">
           <span>Jacob's Game Lab</span>
           <span class="brand-badge">Game Resources</span>
         </a>
 
         <nav class="nav-links">
-          <a href="/" class="nav-link">Home</a>
+          <a href="${homeUrl}" class="nav-link">Home</a>
           <a href="https://github.com/jacob3015/jacob3015.github.io" target="_blank" rel="noopener noreferrer" class="nav-link">GitHub</a>
           <button id="theme-toggle" class="theme-btn" aria-label="Toggle dark/light mode" title="Toggle theme">
             ${isDark ? this.getSunIcon() : this.getMoonIcon()}
@@ -217,6 +229,8 @@ class SiteFooter extends HTMLElement {
   }
 
   connectedCallback() {
+    const homeUrl = getHomeUrl();
+
     this.shadowRoot.innerHTML = `
       <style>
         :host {
@@ -269,7 +283,7 @@ class SiteFooter extends HTMLElement {
       <footer class="footer-container">
         <p>© 2026 Jacob (Jaimin Pak). Interactive Game Development Resources & Prototypes.</p>
         <div class="footer-links">
-          <a href="/" class="footer-link">Home</a>
+          <a href="${homeUrl}" class="footer-link">Home</a>
           <a href="https://github.com/jacob3015/jacob3015.github.io" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
         </div>
       </footer>

@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "id": "civilization-history-matrix",
+    "title": "문명사와 판타지 RPG의 만남: 연대기적 세계관 리서치 매트릭스",
+    "description": "3D 액션 판타지 RPG를 향한 공유 세계관 연대기 구축 전략과 사냥·요리·제작·연금·무역·신화 6대 문명사 리서치 인터랙티브 매트릭스",
+    "category": "Lore & Story",
+    "gameProject": "Chronicles Universe",
+    "resourceType": "lore-codex",
+    "tags": ["Worldbuilding", "History", "Lore", "GameDesign", "Timeline"],
+    "path": "/posts/civilization-history-matrix/",
+    "createdAt": "2026-10-15",
+    "thumbnail": "/assets/img/covers/civilization-history-matrix.svg",
+    "interactiveFeatures": ["시대별 연대기 로드맵 탐색", "6대 문명사 시스템 매트릭스", "RPG 시스템 연계 테크트리"],
+    "featured": true,
+    "status": "published"
+  }
+]

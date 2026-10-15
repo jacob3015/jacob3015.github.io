@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Favicons -->
+  <link rel="icon" href="../../assets/img/icons/favicon-16x16.png" sizes="16x16" type="image/png">
+  <link rel="icon" href="../../assets/img/icons/favicon-32x32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="../../assets/img/icons/favicon.ico" sizes="48x48" type="image/x-icon">
+
+  <!-- Global Base Styles & Web Components -->
+  <link rel="stylesheet" href="../../assets/css/reset.css">
+  <link rel="stylesheet" href="../../assets/css/global.css">
+  <script type="module" src="../../assets/js/site-components.js"></script>
+
+  <!-- Post-specific Stylesheet -->
+  <link rel="stylesheet" href="./style.css">
+
+  <title>문명사와 판타지 RPG의 만남: 연대기적 세계관 리서치 매트릭스 | Jacob's Interactive Game Lab</title>
+</head>
+<body>
+  <site-header></site-header>
+
+  <main class="container">
+    <!-- Breadcrumb & Post Header -->
+    <header class="post-header">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="../../">Home</a>
+        <span>/</span>
+        <span>Lore & Story</span>
+        <span>/</span>
+        <span>Civilization History Matrix</span>
+      </nav>
+      <div class="post-meta-badges">
+        <span class="badge" style="background-color: var(--accent-subtle); color: var(--accent-primary);">Lore &amp; Story</span>
+        <span class="badge" style="background-color: rgba(124, 58, 237, 0.12); color: #7c3aed;">Project: Chronicles Universe</span>
+        <span class="badge" style="background-color: rgba(16, 185, 129, 0.12); color: #059669;">Interactive Codex</span>
+      </div>
+      <h1 class="post-title">문명사와 판타지 RPG의 만남: 연대기적 세계관 리서치 매트릭스</h1>
+      <p class="post-lead">
+        3D 액션 판타지 RPG를 향한 단계적 게임 개발 전략과, 인류 문명사(사냥·요리·제작·연금·무역·신화)를
+        공유 세계관의 핵심 플레이어블 시스템으로 승화시키는 인터랙티브 월드빌딩 아카이브입니다.
+      </p>
+    </header>
+
+    <!-- Interactive Applet Section 1: Timeline & Anthology Roadmap -->
+    <section class="interactive-workspace" aria-label="문명 연대기 및 개발 로드맵">
+      <div class="section-heading">
+        <div class="heading-badge">STEP 1. 연대기적 개발 전략</div>
+        <h2>공유 세계관 타임라인 &amp; 소형 시뮬레이션 연계 로드맵</h2>
+        <p>각 시대를 클릭하여 소형 시뮬레이션 게임 컨셉과 미래 3D RPG로 계승되는 역사적 유산을 탐색해 보세요.</p>
+      </div>
+
+      <!-- Timeline Step Selector -->
+      <nav class="timeline-nav" id="timeline-nav" role="tablist" aria-label="시대 선택">
+        <button class="timeline-step active" data-era="0" role="tab" aria-selected="true">
+          <span class="step-num">ERA I</span>
+          <span class="step-title">태고 / 원시 신화 시대</span>
+          <span class="step-sub">🏕️ 원시 수렵 &amp; 생태계</span>
+        </button>
+        <button class="timeline-step" data-era="1" role="tab" aria-selected="false">
+          <span class="step-num">ERA II</span>
+          <span class="step-title">문명 태동기</span>
+          <span class="step-sub">⚒️ 정착지 &amp; 대장간 공방</span>
+        </button>
+        <button class="timeline-step" data-era="2" role="tab" aria-selected="false">
+          <span class="step-num">ERA III</span>
+          <span class="step-title">도시 &amp; 교역로 시대</span>
+          <span class="step-sub">🐫 대상인 무역 &amp; 연금 공방</span>
+        </button>
+        <button class="timeline-step" data-era="3" role="tab" aria-selected="false">
+          <span class="step-num">FINAL</span>
+          <span class="step-title">영웅 &amp; 모험의 시대</span>
+          <span class="step-sub">⚔️ 3D 액션 판타지 RPG</span>
+        </button>
+      </nav>
+
+      <!-- Era Detailed Display Card -->
+      <div class="era-card" id="era-card">
+        <!-- Dynamically rendered by script.js -->
+      </div>
+    </section>
+
+    <!-- Interactive Applet Section 2: Research Matrix -->
+    <section class="interactive-workspace" aria-label="6대 문명사 시스템 매트릭스">
+      <div class="section-heading">
+        <div class="heading-badge">STEP 2. 6대 문명사 시스템 리서치</div>
+        <h2>문명사 핵심 분야와 판타지 RPG 시스템 매트릭스</h2>
+        <p>인류의 실제 기술 발전사가 게임 속 크래프팅/라이프 시스템으로 어떻게 재구성되는지 분야별로 확인하세요.</p>
+      </div>
+
+      <!-- System Domain Filter Tabs -->
+      <div class="domain-tabs" id="domain-tabs" role="tablist">
+        <!-- Dynamically generated -->
+      </div>
+
+      <!-- Matrix Detail 4-Grid Box -->
+      <div class="matrix-grid" id="matrix-grid">
+        <!-- Dynamically rendered by script.js -->
+      </div>
+    </section>
+
+    <!-- Interactive Applet Section 3: System Convergence Canvas -->
+    <section class="interactive-workspace" aria-label="시스템 수렴 테크트리">
+      <div class="section-heading">
+        <div class="heading-badge">STEP 3. 아키텍처 융합</div>
+        <h2>소형 시뮬레이션에서 3D RPG로의 시스템 수렴도</h2>
+        <p>캔버스 위의 노드에 마우스를 올리거나 클릭하여 시스템의 상호작용 연결망을 확인하세요.</p>
+      </div>
+
+      <div class="canvas-container">
+        <canvas id="tech-canvas" width="900" height="420" aria-label="시스템 수렴 테크트리 캔버스"></canvas>
+        <div class="canvas-tooltip" id="canvas-tooltip"></div>
+      </div>
+      <div class="canvas-legend">
+        <span class="legend-item"><span class="legend-dot dot-primitive"></span> Sim 1: 수렵 &amp; 생태계</span>
+        <span class="legend-item"><span class="legend-dot dot-settlement"></span> Sim 2: 정착 &amp; 대장간</span>
+        <span class="legend-item"><span class="legend-dot dot-trade"></span> Sim 3: 무역 &amp; 연금술</span>
+        <span class="legend-item"><span class="legend-dot dot-rpg"></span> Destination: 3D 액션 RPG</span>
+      </div>
+    </section>
+
+    <!-- Deep Dive Article & Notes -->
+    <article class="resource-details">
+      <h2>💡 개발 전략 심층 분석: 왜 연대기적 옴니버스인가?</h2>
+      
+      <div class="details-callout">
+        <h3>1. 인디 개발자의 생존과 스코프(Scope) 리스크 제어</h3>
+        <p>
+          수많은 인디 게임 프로젝트가 <em>"자유도 높은 3D 오픈월드 RPG"</em>라는 거대한 첫 목표 앞에서 기획 비대화(Scope Creep)와 
+          제작 피로도로 인해 미완으로 끝납니다. 반면, <strong>핵심 시스템(경제, 채집, 제작, 전투 루프)을 2D/아이소메트릭 기반의 소형 시뮬레이션 게임으로 
+          쪼개어 하나씩 시장에 출시하는 전략</strong>은 실전 출시 경험을 쌓고 개발 동력을 지속시키는 가장 안전하고 현실적인 로드맵입니다.
+        </p>
+      </div>
+
+      <div class="details-callout">
+        <h3>2. 플레이어의 손으로 쓰인 역사: 환경적 서사(Environmental Storytelling)</h3>
+        <p>
+          책상 위에서 머리로만 쓴 설정집은 플레이어에게 공허한 텍스트 뭉치로 다가가기 쉽습니다. 하지만 
+          <strong>"Sim 1에서 부족민들과 함께 사냥했던 전설의 거대 야수"</strong>, 
+          <strong>"Sim 2에서 처음으로 풀무질 온도를 올려 벼려낸 고대 청동 검"</strong>, 
+          <strong>"Sim 3에서 대상인들이 사막을 건너며 정제했던 최초의 포션"</strong>이 
+          후속작인 3D 액션 RPG의 <strong>던전 유적, 전설 등급 유물, 비전서</strong>로 직접 등장할 때, 
+          플레이어는 그 어떤 사전 기획 스토리보다 강력한 몰입감과 벅찬 감동을 경험하게 됩니다.
+        </p>
+      </div>
+
+      <div class="details-callout">
+        <h3>3. 모듈식 코드와 검증된 게임 로직의 이식</h3>
+        <p>
+          소형 시뮬레이션 단계에서 정밀하게 밸런싱된 <em>데미지 산식, 인벤토리 무게 체계, 아이템 조합 레시피, NPC 욕구 AI</em>는 
+          최종 3D 프로젝트에서 그대로 핵심 코어 로직으로 재사용됩니다. 개발자는 복잡한 게임 시스템 설계의 부담을 덜고, 
+          3D 액션 전투 연출과 오픈월드 비주얼 구축에 집중할 수 있게 됩니다.
+        </p>
+      </div>
+    </article>
+  </main>
+
+  <site-footer></site-footer>
+
+  <!-- Post-specific Script -->
+  <script type="module" src="./script.js"></script>
+</body>
+</html>

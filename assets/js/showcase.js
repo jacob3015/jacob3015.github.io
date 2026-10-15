@@ -76,7 +76,7 @@ class ShowcaseApp {
 
   async fetchPosts() {
     try {
-      const response = await fetch('/data/posts.json');
+      const response = await fetch('./data/posts.json');
       if (!response.ok) {
         throw new Error(`Failed to load posts (Status: ${response.status})`);
       }
@@ -225,7 +225,9 @@ class ShowcaseApp {
 
   createCardElement(post) {
     const card = document.createElement('a');
-    card.href = post.path || '#';
+    // Normalize path to relative path
+    const cardPath = (post.path || '#').replace(/^\//, './');
+    card.href = cardPath;
     card.className = 'post-card';
     card.setAttribute('aria-label', post.title);
 
@@ -246,7 +248,10 @@ class ShowcaseApp {
       day: 'numeric'
     }) : '';
 
-    const thumbnailSrc = post.thumbnail || '/assets/img/covers/default-cover.svg';
+    let thumbnailSrc = post.thumbnail || './assets/img/covers/default-cover.svg';
+    if (thumbnailSrc.startsWith('/')) {
+      thumbnailSrc = '.' + thumbnailSrc;
+    }
 
     const typeIcon = RESOURCE_TYPE_ICONS[post.resourceType] || '🎲';
     const typeHtml = post.resourceType 
