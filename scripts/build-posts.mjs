@@ -51,15 +51,25 @@ function parseFrontmatter(raw) {
 
   const lines = yamlStr.split(/\r?\n/);
   for (const rawLine of lines) {
-    // Strip inline comments outside quotes
-    const line = rawLine.replace(/\s+#.*$/, '').trim();
-    if (!line || line.startsWith('#')) continue;
+    const trimmedLine = rawLine.trim();
+    if (!trimmedLine || trimmedLine.startsWith('#')) continue;
 
-    const colonIdx = line.indexOf(':');
+    const colonIdx = trimmedLine.indexOf(':');
     if (colonIdx === -1) continue;
 
-    const key = line.slice(0, colonIdx).trim();
-    let val = line.slice(colonIdx + 1).trim();
+    const key = trimmedLine.slice(0, colonIdx).trim();
+    let val = trimmedLine.slice(colonIdx + 1).trim();
+
+    // If not quoted and not an array, strip trailing inline comments
+    if (!val.startsWith('"') && !val.startsWith("'") && !val.startsWith('[')) {
+      val = val.replace(/\s+#.*$/, '').trim();
+    } else if ((val.startsWith('"') || val.startsWith("'"))) {
+      const quoteChar = val[0];
+      const endQuoteIdx = val.lastIndexOf(quoteChar);
+      if (endQuoteIdx > 0) {
+        val = val.slice(1, endQuoteIdx);
+      }
+    }
 
     if (val.startsWith('[') && val.endsWith(']')) {
       const inner = val.slice(1, -1).trim();
@@ -234,8 +244,8 @@ function renderMarkdownBlock(md, isManuscript = false) {
  * Split Markdown body by `## ` level-2 headings into structured sections.
  */
 function parseSections(body) {
-  const cleaned = body.replace(/^---\s*$/gm, '');
-  const parts = cleaned.split(/^##\s+/m).filter(Boolean);
+  const cleaned = body.replace(/^---\s*$/gm, '').trim();
+  const parts = cleaned.split(/^##\s+/m).map(p => p.trim()).filter(Boolean);
   const sections = [];
 
   for (const part of parts) {

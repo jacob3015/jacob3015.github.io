@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "id": "2026-11-09-drill-01-black-iron-golem-counter",
+    "title": "[Drill #01] 폭발의 엇박자, 부서진 검으로 꿰뚫은 흑철의 심장",
+    "date": "2026-11-09 20:10:59 +0900",
+    "categories": [
+      "Writing-Drill",
+      "Action"
+    ],
+    "theme": "Action",
+    "tags": [
+      "판타지",
+      "전투연출",
+      "골렘전",
+      "마법검사",
+      "일격필살"
+    ],
+    "drill_level": 3,
+    "char_count": 673,
+    "keywords": [
+      "실금",
+      "쇳내",
+      "엇박자"
+    ],
+    "constraint_passed": true,
+    "summary": "무너지는 지하 유적 돌다리 위, 왼손 마력 폭발의 반동과 금이 간 검의 파편을 이용해 흑철 골렘의 마력 핵을 역수로 꿰뚫는 극한의 카운터 전투 장면",
+    "path": "/posts/2026-11-09-drill-01-black-iron-golem-counter/",
+    "source_md": "_posts/2026-11-09-drill-01-black-iron-golem-counter.md"
+  }
+]
