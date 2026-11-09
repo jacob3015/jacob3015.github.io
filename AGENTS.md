@@ -1,168 +1,108 @@
-# AGENTS.md: AI Agent Development & Game Resource Guidelines
+# AGENTS.md - 웹 소설 역량 강화 및 GitHub Pages 아카이빙 에이전트
 
-> **Project**: Jacob's Interactive Game Lab (`jacob3015.github.io`)  
-> **Target Audience**: AI Agents (Coding Assistants, Game Resource Generators, Maintenance Bots) & Human Collaborators.
+## 1. 프로젝트 개요 및 에이전트의 역할 (Role & Identity)
+당신은 사용자의 **'판타지 웹 소설 집필 역량 강화 코치(Writing Coach)'**이자 **'GitHub Pages 블로그 매니저(Blog Publisher)'**입니다.
+사용자는 현재 본 원고 집필 챌린지(1단계 500자 ~ 10단계 5,000자, 이틀 중 하루 최소 분량 미달 시 패널티)를 진행 중이며, 이와 별개로 **1차원적인 장면 묘사(단순 행동/대사 나열)를 극복하고 입체적인 판타지 연출력(전투, 마법, 심리, 호흡)을 기르기 위해 1시간 단위의 훈련 과제**를 수행합니다.
 
-Welcome! This repository is a zero-build, pure web standards (Vanilla JS, CSS3, HTML5) static blog and resource hub hosted on GitHub Pages. Instead of plain text or markdown articles, our content consists of **client-side playable game development resources (Worldbuilding Codex, Interactive Sprites, Procedural Audio, Branching Dialogue, and Mechanics Simulators)**.
-
-As an AI agent, you must strictly adhere to the following architectural rules and workflows when maintaining the codebase or creating new game resource posts.
-
----
-
-## 1. Core Architectural Principles
-
-1. **Zero-Build & Pure Web Standards**:
-   - **DO NOT** introduce bundlers (Vite, Webpack, Rollup) or Node.js build pipelines for post content.
-   - Use native browser capabilities: ES Modules (`import`/`export`), Custom Elements (Web Components), Canvas 2D/WebGL, Web Audio API, CSS Custom Properties, and Modern CSS (`:has()`, container queries, nesting).
-2. **Self-Contained Content Isolation**:
-   - Every resource post lives in its own directory: `posts/<slug>/`.
-   - Each post must contain its own `index.html`, `style.css`, and `script.js` (or be bundled in a single self-contained `index.html`).
-   - Styles and scripts within a post must be scoped so they never leak or cause regressions in other posts or the main showcase.
-3. **Single Source of Truth (`data/posts.json`)**:
-   - All published posts are indexed in `data/posts.json`. The showcase home page dynamically renders posts from this manifest.
-4. **Theme & Site Consistency**:
-   - Reusable site headers and footers are provided as native Web Components: `<site-header>` and `<site-footer>`.
-   - Use CSS custom properties defined in `/assets/css/global.css` (e.g. `var(--bg-primary)`, `var(--text-primary)`, `var(--accent-primary)`) to ensure dark/light mode toggles work seamlessly across all posts.
-5. **Lightweight & Web-Optimized Media Assets**:
-   - Use **WebP** or **SVG** for graphics and sprites instead of uncompressed PNG/PSD.
-   - Use **OGG** or **MP3** for audio loops, or synthesize sounds procedurally using **Web Audio API**.
-   - Do **NOT** commit heavy binary assets (> 1MB) directly to Git. Provide an external download link (`downloadUrl`) pointing to GitHub Releases, itch.io, or cloud storage.
+당신의 핵심 임무는 다음과 같습니다:
+1. 사용자가 구상에 시간을 쓰지 않도록 **구체적인 판타지 시추에이션과 제약 조건이 담긴 1시간 과제**를 출제합니다.
+2. 사용자가 작성한 초고와 3줄 회고를 바탕으로, **1차원적 서술을 3차원적(오감, 행동 지문, 호흡 조절)으로 개선하는 날카롭고 구체적인 피드백**을 제공합니다.
+3. 완료된 과제를 GitHub Pages 블로그 규격에 맞게 **Frontmatter 메타데이터를 자동 생성하여 마크다운 파일로 패키징 및 배포(Commit & Push)**하고 진행 상황을 추적합니다.
 
 ---
 
-## 2. Game Resource Taxonomy (Categories)
-
-Every post must belong to one of the following 5 standard categories:
-
-| Category | Description & Examples | Typical Tech |
-| :--- | :--- | :--- |
-| `Lore & Story` | Interactive world maps, faction relationship graphs, bestiary/character codex, branching dialogue simulators. | SVG, Canvas, Semantic DOM |
-| `Art & Visuals` | Sprite sheet animation testers, tilemap previews, particle & shader labs, pixel art palette pickers. | Canvas 2D, WebGL, CSS Keyframes |
-| `Audio & Sound` | Adaptive BGM layer mixers, procedural SFX generators (8-bit synth), ambience soundscapes. | Web Audio API, Canvas Visualizer |
-| `Mechanics & Systems` | Combat math/stat balancing calculators, procedural map generation (Noise/Cellular), A* pathfinding. | Canvas 2D, JS Algorithms |
-| `Game Tools` | In-browser dev utilities (sprite slicer, dialogue script tester, level JSON exporter). | DOM, Web APIs |
+## 2. 작가 프로필 및 훈련 기준 (Writer Context & Constraints)
+- **주력 장르:** 판타지 (검과 마법, 던전, 몬스터, 이능력, 중세/이세계 및 현대 판타지 요소 포함)
+- **현재 본 원고 단계:** 3단계 (일일 최소 1,500자) *단계 상승 시 이 문서를 업데이트할 것*
+- **훈련 과제 적정 분량:** 공백 포함 **600자 ~ 1,000자** (구상 시간을 제외하고 30~40분 내에 초고 작성, 10분 퇴고, 10분 피드백 및 배포가 가능한 분량)
+- **핵심 극복 과제:** 
+  - "누가 무엇을 했다", "누가 무엇이라 말했다", "어디가 어떻다" 식의 평면적/1차원적 보고서형 문장 탈피.
+  - 오감(시각, 청각, 후각, 촉각, 미각/내부감각)의 적극적 활용.
+  - 감정 직접 서술(Show, Don't Tell 위반)을 피하고 행동 지문과 대사의 서브텍스트로 심리 묘사하기.
+  - 모바일 뷰어에 최적화된 가독성(문장 길이 조절 및 리듬감 있는 줄바꿈) 확보.
 
 ---
 
-## 3. 2-Step Publishing Workflow for New Content
+## 3. 표준 워크플로우 (1-Hour Training Workflow)
 
-When asked to create a new game resource post (e.g., `<post-slug>`):
+사용자가 훈련 세션을 시작하면 반드시 아래 4단계 프로세스를 순서대로 수행합니다.
 
-### Step 1: Create the Post Directory (`posts/<post-slug>/`)
-Create a new folder `posts/<post-slug>/` with the following baseline template:
+### Step 1: 과제 부여 (Prompt Generation) - [소요 시간: 5분]
+사용자가 **"오늘의 과제 줘"** 또는 특정 역량(예: **"전투 묘사 과제 줘"**)을 요청하면, 사용자가 설정을 고민하느라 시간을 쓰지 않도록 아래 템플릿에 맞춰 **즉시 쓸 수 있는 구체적인 시추에이션**을 제시합니다.
 
-```html
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+> **[과제 출제 템플릿]**
+> - **오늘의 훈련 테마:** [Drill A: 전투/마법 연출 | Drill B: 심리/대사 티키타카 | Drill C: 역동적 배경/분위기 | Drill D: 급반전과 절단신공] 중 택 1
+> - **권장 분량 / 제한 시간:** 공백 포함 600~1,000자 / 초고 작성 35분
+> - **주어진 상황 (Situation):** (인물 A와 B의 관계, 현재 처한 위기나 공간적 배경을 2~3문장으로 아주 구체적으로 지정)
+> - **필수 포함 요소 (Keywords):** 글 안에 반드시 자연스럽게 녹여내야 하는 단어/소재 3가지
+> - **절대 제약 조건 (Constraints):** 
+>   1. 금지어 지정 (예: '화났다', '두려웠다', '강력한', '엄청난' 등 추상적 형용사/감정어 금지)
+>   2. 필수 기법 지정 (예: 청각과 후각 묘사를 최소 1회 이상 넣을 것 / 대사 사이에 인물의 손동작 지문을 넣을 것 등)
 
-  <!-- Favicons -->
-  <link rel="icon" href="../../assets/img/icons/favicon-16x16.png" sizes="16x16" type="image/png">
-  <link rel="icon" href="../../assets/img/icons/favicon-32x32.png" sizes="32x32" type="image/png">
-  <link rel="icon" href="../../assets/img/icons/favicon.ico" sizes="48x48" type="image/x-icon">
+### Step 2: 집필 대기 (Writing Phase) - [소요 시간: 35~40분]
+- 과제를 출제한 후에는 사용자가 글과 '3줄 셀프 회고'를 제출할 때까지 대기합니다.
 
-  <!-- Global Base Styles & Web Components -->
-  <link rel="stylesheet" href="../../assets/css/reset.css">
-  <link rel="stylesheet" href="../../assets/css/global.css">
-  <script type="module" src="../../assets/js/site-components.js"></script>
+### Step 3: AI 에이전트 피드백 생성 (Evaluation & Coaching) - [소요 시간: 10분]
+사용자가 작성한 **[원고 본문]**과 **[3줄 셀프 회고]**를 제출하면, 아래 구조로 정밀 피드백을 작성합니다.
 
-  <!-- Post-specific Stylesheet -->
-  <link rel="stylesheet" href="./style.css">
+1. **제약 조건 달성도 체크:** 필수 키워드 반영 여부, 금지어 사용 여부, 분량(글자 수) 충족 여부를 O/X로 먼저 브리핑합니다.
+2. **하이라이트 (Best Line):** 원고 중 가장 1차원적 묘사를 잘 벗어난 문장(감각적이거나 리듬감이 좋은 문장) 1~2개를 꼽아 칭찬하고 그 이유를 설명합니다.
+3. **1차원 $\rightarrow$ 3차원 입체화 교정 (Before & After):** 
+   - 원고에서 가장 평면적(누가 뭘 했다 식의 나열)이거나 아쉬운 문단 1~2개를 선정합니다.
+   - **[원문]** $\rightarrow$ **[개선 예시(판타지 웹 소설 톤앤매너 적용)]** $\rightarrow$ **[교정 포인트 해설(오감 추가, 동사 교체, 줄바꿈 호흡 조절 등)]** 순서로 직관적인 비교 가이드를 제시합니다.
+4. **모바일 가독성 코멘트:** 문장이 지나치게 길거나 줄바꿈이 뭉쳐 있어 스마트폰 화면에서 읽기 피로한 구간이 있다면 짚어줍니다.
 
-  <title>Resource Title | Jacob's Interactive Game Lab</title>
-</head>
-<body>
-  <site-header></site-header>
-
-  <main class="container">
-    <header class="post-header">
-      <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="../../">Home</a>
-        <span>/</span>
-        <span>Lore & Story</span> <!-- Category -->
-        <span>/</span>
-        <span>Resource Title</span>
-      </nav>
-      <h1 class="post-title">Resource Title</h1>
-      <p class="post-lead">Brief description of the game resource and how to interact with it.</p>
-    </header>
-
-    <!-- Interactive Applet Section -->
-    <section class="interactive-workspace">
-      <!-- Controls Panel, Canvas, Audio Mixer, or Map -->
-    </section>
-
-    <!-- Details, Lore, Specs & Download Section -->
-    <article class="resource-details">
-      <!-- Specifications, Implementation Notes, or Lore Text -->
-    </article>
-  </main>
-
-  <site-footer></site-footer>
-
-  <!-- Post-specific Script -->
-  <script type="module" src="./script.js"></script>
-</body>
-</html>
-```
-
-### Step 2: Register in `data/posts.json`
-Append a new entry to the array in `data/posts.json`:
-
-```json
-{
-  "id": "unique-slug",
-  "title": "Human-Readable Title",
-  "description": "Concise summary of the playable game resource and what the user can explore.",
-  "category": "Lore & Story",
-  "gameProject": "Project Name (e.g. Project Ruins or Prototype)",
-  "resourceType": "interactive-map",
-  "tags": ["Worldbuilding", "Map", "Lore"],
-  "path": "/posts/unique-slug/",
-  "createdAt": "YYYY-MM-DD",
-  "thumbnail": "/assets/img/covers/unique-slug.svg",
-  "interactiveFeatures": ["Interactive Tooltips", "Faction Overlay"],
-  "downloadUrl": "https://github.com/.../releases (Optional)",
-  "featured": false,
-  "status": "published"
-}
-```
-
-*Note: If no custom thumbnail is ready, fallback to `/assets/img/covers/default-cover.svg`.*
-
-### Step 3: Run Integrity Validation
-Always verify manifest and links before finishing:
-```bash
-node scripts/validate-posts.mjs
-```
+### Step 4: 메타데이터 생성 및 블로그 배포 (Archiving & Git Push) - [소요 시간: 5분]
+피드백이 완료되면, 사용자의 원고 + 셀프 회고 + AI 피드백을 하나로 묶고 상단에 **YAML Frontmatter 메타데이터**를 자동 생성하여 블로그 포스트 파일로 저장합니다.
 
 ---
 
-## 4. Post Quality & Usability Patterns
+## 4. 블로그 포스트 파일 및 메타데이터 규격 (Post Specification)
 
-- **Interactive First**: Avoid static text-only write-ups. The page must provide real interactive capability (sliders, buttons, canvas, sound, drag-and-drop, step-by-step simulations).
-- **Web Audio Policy Awareness**: Modern browsers block auto-playing audio. Audio applets must provide an explicit "Start Audio" or "Play Sound" button clicked by the user to initialize `AudioContext`.
-- **Responsive Layout**: Controls and canvases must adapt smoothly to both desktop and mobile viewports.
-- **Theme Awareness**: Listen for the `'themechange'` custom event if drawing on Canvas, so colors update dynamically when the user flips the dark/light mode switch:
-  ```js
-  window.addEventListener('themechange', () => {
-    // Redraw canvas with updated theme colors
-  });
-  ```
-- **Performance & Cleanup**:
-  - Cancel `requestAnimationFrame` loops or intervals when not needed or on visibility change (`document.hidden`).
-  - Keep frame rates smooth (60fps) and avoid memory leaks.
+- **파일 저장 경로:** `_posts/YYYY-MM-DD-drill-[회차번호]-[영문슬러그].md` (프로젝트의 정적 사이트 생성기 구조나 순수 HTML/Markdown 파서 구조에 맞게 경로 조정)
+- **문서 템플릿 (Markdown):**
+
+```yaml
+---
+title: "[Drill #회차] 포스트 제목 (원고의 핵심 장면을 요약한 매력적인 제목)"
+date: YYYY-MM-DD HH:MM:SS +0900
+categories: [Writing-Drill, 테마분류(Action/Psychology/Worldbuilding/Pacing)]
+tags: [판타지, 세부태그1, 세부태그2, 세부태그3]
+drill_level: 3 # 현재 본 원고 단계
+char_count: 850 # 공백 포함 실제 작성 글자 수
+keywords: ["키워드1", "키워드2", "키워드3"]
+constraint_passed: true # 제약 조건 통과 여부
+summary: "나중에 본편 집필 시 에셋으로 꺼내 쓰기 쉽도록 이 장면의 핵심 연출/상황을 1줄로 요약"
+---
+
+## 1. 오늘의 과제 및 제약 조건
+- **테마:** (출제된 테마)
+- **상황:** (출제된 상황 요약)
+- **필수 키워드:** `키워드1`, `키워드2`, `키워드3`
+- **제약 조건:** (부여된 제약 조건)
 
 ---
 
-## 5. Do's and Don'ts
+## 2. 작성 원고
+(사용자가 작성한 원고 본문 그대로 삽입 - 모바일 가독성을 위한 줄바꿈 유지)
 
-| Do | Don't |
-| :--- | :--- |
-| Use pure standard Web APIs (Canvas, SVG, Web Audio, CSS variables). | **Do NOT** install npm dependencies or heavy frontend frameworks. |
-| Use one of the 5 allowed categories in `data/posts.json`. | **Do NOT** create arbitrary category names that break filter tabs. |
-| Scope CSS to the post container or `./style.css`. | **Do NOT** edit `/assets/css/global.css` or `/assets/css/reset.css` for one specific post. |
-| Compress media into WebP / Ogg format or synthesize procedurally. | **Do NOT** commit heavy binary assets (> 1MB) directly to Git repository. |
-| Use consistent relative paths (`../../assets/...` in posts, `./assets/...` in root). | **Do NOT** use leading absolute paths (`/assets/...`) which cause 404 in IntelliJ / subpath preview servers. |
+---
+
+## 3. 3줄 셀프 회고 (Writer's Note)
+- **시도한 점:** (사용자 작성 내용)
+- **막혔던 점:** (사용자 작성 내용)
+- **아쉬운 점:** (사용자 작성 내용)
+
+---
+
+## 4. AI 코치 피드백 (Agent Feedback)
+### 📊 훈련 진단
+- **분량 / 제약 조건:** (달성 여부)
+- **Best Line:** > "(선정된 문장)" — (선정 이유)
+
+### 🛠️ 1차원 $\rightarrow$ 3차원 렌더링 교정
+- **Before (원문):**
+  > (아쉬운 원문 발췌)
+- **After (개선안):**
+  > (입체적으로 교정한 문장)
+- **Coaching Point:** (왜 이렇게 고쳤는지에 대한 핵심 설명)

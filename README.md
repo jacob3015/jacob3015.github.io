@@ -1,37 +1,23 @@
-# Jacob's Interactive Game Lab
+# Jacob's Novel Drill — 판타지 웹 소설 집필 훈련 아카이브
 
-> **AI 에이전트 자율 관리 기반의 순수 웹 표준(JS · CSS · HTML) 클라이언트 사이드 게임 리소스 랩 & 쇼케이스**
+> **1차원적 서술을 넘어 오감·행동 지문·모바일 호흡이 살아있는 3차원 판타지 장면을 연마하고 아카이빙하는 Medium 스타일 블로그**
 
-[![GitHub Pages](https://img.shields.io/badge/Hosted_on-GitHub_Pages-blue?logo=github)](https://jacob3015.github.io)
-[![Pure Web Standards](https://img.shields.io/badge/Architecture-Pure_Web_Standards-emerald)](https://jacob3015.github.io)
-[![Zero Build](https://img.shields.io/badge/Build_Step-Zero_Build-orange)](https://jacob3015.github.io)
-[![Status: Production Ready](https://img.shields.io/badge/Status-Transition_Completed-success)](https://jacob3015.github.io)
+[![GitHub Pages](https://img.shields.io/badge/Hosted_on-GitHub_Pages-1a8917?logo=github)](https://jacob3015.github.io)
+[![Pure Web Standards](https://img.shields.io/badge/Architecture-Pure_HTML_CSS_JS-242424)](https://jacob3015.github.io)
+[![Editorial Design](https://img.shields.io/badge/Style-Medium_Editorial-serif)](https://jacob3015.github.io)
 
-**Jacob's Interactive Game Lab**(`https://jacob3015.github.io`)은 단순한 텍스트/이미지 아카이브에서 벗어나, 게임 개발에 필요한 종합 예술 리소스(세계관, 아트, 음악, 서사, 시스템 메커닉)를 브라우저 상에서 직접 조작하고 검증할 수 있는 **상호작용형 웹 리소스(Playable Game Resources & Prototypes)**를 게재하고 운영하는 랩입니다.
-
-AI 에이전트가 자체적으로 프로젝트를 관리하고, 새로운 인터랙티브 게임 리소스를 지속적으로 생성·게재할 수 있도록 **에이전트 친화적(Agent-First)**으로 설계되었습니다.
+**Jacob's Novel Drill**(`https://jacob3015.github.io`)은 판타지 웹 소설(검과 마법, 던전, 몬스터, 이능력) 본 원고 집필과 병행하여, **1시간 단위의 집중 묘사 훈련(600~1,000자)**과 **AI 코치의 1차원 → 3차원 입체화 교정 피드백**을 기록하고 본편 집필용 장면 에셋으로 관리하는 아카이브입니다.
 
 ---
 
-## 🎮 게임 리소스 분류 체계 (Taxonomy)
+## 🎯 핵심 훈련 테마 (Drill Taxonomy)
 
-| 카테고리 | 설명 및 리소스 예시 | 주요 활용 기술 |
+| 테마 코드 | 훈련 영역 | 핵심 목표 |
 | :--- | :--- | :--- |
-| **Lore & Story** | 대화형 세계관 지도, 세력 관계도, 인물/몬스터 도감(Codex), 분기형 대화 시뮬레이터 | SVG, Canvas, Semantic DOM |
-| **Art & Visuals** | 2D 스프라이트 애니메이션 테스터, 타일셋 미리보기, 절차적 파티클 & 셰이더 랩 | Canvas 2D, WebGL, CSS Keyframes |
-| **Audio & Sound** | 적응형 BGM 레이어 믹서, 8-bit 절차적 SFX 생성기, 환경음(앰비언스) 플레이어 | Web Audio API, Canvas Visualizer |
-| **Mechanics & Systems** | 데미지/스탯 밸런서, 절차적 맵 생성기(Noise/Automata), 길찾기(A*) 및 충돌 알고리즘 | Canvas 2D, Pure JS Algorithms |
-| **Game Tools** | 브라우저 기반 게임 제작 유틸리티 (스프라이트 슬라이서, 대사 스크립트 테스터 등) | DOM, Web APIs |
-
----
-
-## 🚀 프로젝트 핵심 특징
-
-- ⚡ **Pure Web Standards & Zero-Build**: 무거운 번들러나 컴파일 파이프라인 없이, 브라우저 네이티브 기술(HTML5, CSS3 Custom Properties, ES Modules, Web Components, View Transitions API)만으로 즉시 서빙됩니다.
-- 🕹️ **Playable & Interactive**: 단순 텍스트/이미지 덤프를 넘어 파티클 조절, 스프라이트 프레임 재생, 오디오 레이어 믹싱 등 브라우저에서 직접 인터랙션하며 리소스를 검증합니다.
-- 🤖 **Agent-First Architecture**: AI 에이전트가 독립된 디렉토리(`posts/<slug>/`) 안에서 기존 코드를 건드리지 않고 새로운 게임 리소스 포스트를 안전하게 자율 생성할 수 있도록 격리성(Self-contained)을 보장합니다.
-- 🧭 **Cross-Document View Transitions**: 브라우저 네이티브 전환 애니메이션을 지원하여 홈과 리소스 간 매끄러운 화면 전환을 제공합니다.
-- 🛡️ **Automated Manifest Validation**: GitHub Actions와 순수 Node.js 스크립트를 통해 메타데이터 유효성과 링크 깨짐을 자동으로 검증합니다.
+| **Action** (`Drill A`) | 전투 / 마법 연출 | 단순 행동 나열을 탈피하고 타격감, 마력의 감각(오감), 속도감 있는 문장 호흡 연출 |
+| **Psychology** (`Drill B`) | 심리 / 대사 티키타카 | 감정 직접 서술(Tell)을 금지하고 행동 지문(손동작, 시선)과 서브텍스트로 심리 표현(Show) |
+| **Worldbuilding** (`Drill C`) | 역동적 배경 / 분위기 | 정적인 풍경 설명서 대신 인물의 움직임과 오감(청각, 후각, 촉각)이 결합된 공간 묘사 |
+| **Pacing** (`Drill D`) | 급반전과 절단신공 | 긴장감의 고조, 문단 길이 조절, 모바일 스크롤에 최적화된 절단신공 연출 |
 
 ---
 
@@ -39,77 +25,51 @@ AI 에이전트가 자체적으로 프로젝트를 관리하고, 새로운 인�
 
 ```text
 jacob3015.github.io/
-├── index.html                   # 메인 쇼케이스 홈 (게임 리소스 카드 그리드, 실시간 검색/카테고리 필터)
-├── 404.html                     # GitHub Pages 404 안내 페이지
-├── AGENTS.md                    # [필독] AI 에이전트 개발 및 게임 리소스 생성 지침서
-├── README.md                    # [본 문서] 프로젝트 소개 및 안내
+├── index.html                   # Medium 스타일 메인 아카이브 피드 & 작가 훈련 대시보드
+├── 404.html                     # 404 안내 페이지
+├── draft.md                     # [집필 워크시트] 1시간 훈련 과제를 수행하고 원고를 작성하는 마크다운 파일
+├── AGENTS.md                    # [필독] AI 코치 역할, 4단계 훈련 워크플로우 및 포스트 규격 지침서
+├── README.md                    # 프로젝트 소개 및 아키텍처 안내
+├── _posts/                      # 완료된 훈련 원본 마크다운 아카이브 (YAML Frontmatter 포함)
+│   └── YYYY-MM-DD-drill-XX-slug.md
+├── posts/                       # _posts/*.md로부터 자동 변환된 정적 HTML 페이지
+│   └── YYYY-MM-DD-drill-XX-slug/
+│       └── index.html           # 모바일 뷰어 폭(390px) 미리보기 및 서체 전환 지원
 ├── data/
-│   └── posts.json               # 전체 게임 리소스 메타데이터 (단일 소스)
+│   └── posts.json               #_posts/*.md 기반으로 자동 생성되는 포스트 매니페스트
 ├── assets/
 │   ├── css/
-│   │   ├── reset.css            # 모던 CSS 리셋
-│   │   ├── global.css           # 글로벌 테마 디자인 토큰 (다크/라이트) & View Transitions
-│   │   └── showcase.css         # 쇼케이스 카드 그리드, 뱃지 및 필터 스타일
+│   │   ├── reset.css            # @layer reset 기반 모던 CSS 리셋
+│   │   ├── global.css           # Medium 에디토리얼 디자인 토큰, 타이포그래피, 다크/라이트 테마
+│   │   ├── showcase.css         # 메인 피드 및 우측 스티키 대시보드 레이아웃
+│   │   └── post.css             # 포스트 상세 리더기, 모바일 뷰어 프레임, Before/After 피드백 스타일
 │   ├── js/
 │   │   ├── site-components.js   # <site-header>, <site-footer> Web Components
-│   │   └── showcase.js          # 쇼케이스 렌더링, 검색, 카테고리 필터, 단축키 처리
+│   │   └── showcase.js          # 피드 렌더링, 테마 탭, 태그 필터, 실시간 훈련 통계 계산
 │   └── img/
-│       ├── covers/              # 포스트별 대표 썸네일 에셋 (기본 default-cover.svg)
-│       └── icons/               # 사이트 파비콘 및 매니페스트 에셋
-├── posts/                       # 각 게임 리소스 디렉토리 (Self-contained)
-│   └── [post-slug]/             # 신규 리소스 등록 위치
-│       ├── index.html
-│       ├── style.css
-│       └── script.js
-├── scripts/
-│   └── validate-posts.mjs       # 메타데이터 스키마 및 링크 무결성 검증기
-└── .github/
-    └── workflows/
-        └── validate-posts.yml   # Push/PR 시 실행되는 GitHub Actions 자동 검증 워크플로우
+│       └── icons/               # 파비콘 및 매니페스트 에셋
+└── scripts/
+    ├── build-posts.mjs          # _posts/*.md → posts/<slug>/index.html & data/posts.json 자동 변환기
+    └── validate-posts.mjs       # 마크다운 Frontmatter 규격 및 HTML/JSON 동기화 무결성 검증기
 ```
 
 ---
 
-## ✍️ 컨텐츠 발행 워크플로우 (For AI Agents & Developers)
+## ⏱️ 1시간 집필 훈련 & 퍼블리싱 워크플로우
 
-새로운 상호작용형 게임 리소스를 발행하는 프로세스입니다:
-
-1. **리소스 포스트 디렉토리 생성 (`posts/<slug>/`)**:
-   - `posts/<slug>/` 디렉토리를 생성하고 자체 `index.html`, `style.css`, `script.js`를 작성합니다.
-   - 상단 `<site-header>`, 하단 `<site-footer>` 컴포넌트를 선언하여 사이트 통일성을 유지합니다.
-2. **메타데이터 등록 (`data/posts.json`)**:
-   - `data/posts.json`에 제목, 설명, 카테고리(`Lore & Story`, `Art & Visuals` 등), 게임 프로젝트, 리소스 타입, 태그 정보를 추가합니다.
-3. **무결성 검증**:
-   - `node scripts/validate-posts.mjs`를 실행하여 스키마 유효성과 파일 실존 여부를 검증합니다.
-
-> 💡 *자세한 코딩 규칙, 템플릿 및 미디어 가이드는 [AGENTS.md](AGENTS.md)를 참고하세요.*
-
----
-
-## 💻 로컬 실행 및 검증 방법
-
-Zero-Build 프로젝트이므로 정적 파일 웹 서버만으로 즉시 구동됩니다:
+1. **Step 1 — 과제 부여 (5분):**
+   - 에이전트에게 *"오늘의 과제 줘"* 또는 *"전투 묘사 과제 줘"*라고 요청하면, 에이전트가 시추에이션·필수 키워드 3개·제약 조건을 출제하고 `draft.md`에 자동으로 세팅합니다.
+2. **Step 2 — 마크다운 집필 및 회고 (35~40분):**
+   - 작가는 `draft.md`의 `## 2. 작성 원고`와 `## 3. 3줄 셀프 회고`를 작성한 후 완료를 알립니다.
+3. **Step 3 — AI 코치 정밀 피드백 (10분):**
+   - 제약 조건 달성도(O/X), Best Line, **1차원 → 3차원 입체화 교정(Before & After)**, 모바일 가독성 코멘트를 제공합니다.
+4. **Step 4 — 마크다운 아카이빙 및 정적 HTML 빌드·배포 (5분):**
+   - `_posts/YYYY-MM-DD-drill-[회차]-[영문슬러그].md`로 저장한 뒤 아래 명령어로 정적 HTML 및 매니페스트를 빌드합니다:
 
 ```bash
-# Python 내장 서버로 실행할 경우
-python3 -m http.server 8000
+# _posts/*.md 파일을 읽어 posts/<slug>/index.html 및 data/posts.json 자동 생성
+node scripts/build-posts.mjs
 
-# 또는 npx serve를 사용할 경우
-npx serve .
-
-# 메타데이터 무결성 검증
+# 메타데이터 및 파일 동기화 검증
 node scripts/validate-posts.mjs
 ```
-
-브라우저에서 `http://localhost:8000`에 접속하면 쇼케이스와 모든 게임 리소스를 확인할 수 있습니다.
-
----
-
-## 🗺️ 전환 로드맵 완수 현황
-
-- [x] **Phase 1: 레거시 정리 (Cleanup)** - 과거 ESP 음원 바이너리 및 백엔드식 과도한 추상화 계층 제거
-- [x] **Phase 2: 기반 시스템 구축 (Foundation)** - CSS 디자인 토큰, 공통 Web Components, `posts.json` 스키마 구축
-- [x] **Phase 3: 메인 쇼케이스 개편 (Showcase Home)** - 동적 카드 그리드, 실시간 검색/필터, 404 안내 페이지
-- [x] **Phase 4: AI 에이전트 가이드 & PoC** - `AGENTS.md` 규약 수립
-- [x] **Phase 5: 자동화 및 고도화 (Automation & Polish)** - GitHub Actions CI 검증 파이프라인, View Transitions 및 검색 UX 강화
-- [x] **Phase 6: 게임 리소스 랩 전환 (Game Dev Resource Hub)** - 종합 예술 게임 리소스 분류 체계(세계관, 아트, 오디오, 서사, 메커닉) 구축, 쇼케이스 필터 고정, 신규 에셋 가이드라인 정립

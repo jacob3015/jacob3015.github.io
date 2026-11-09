@@ -1,19 +1,21 @@
-name: Validate Posts Manifest
+name: Validate Writing Drill Posts
 
 on:
   push:
     branches: [ main ]
     paths:
+      - '_posts/**'
       - 'data/posts.json'
       - 'posts/**'
-      - 'scripts/validate-posts.mjs'
+      - 'scripts/**'
       - '.github/workflows/validate-posts.yml'
   pull_request:
     branches: [ main ]
     paths:
+      - '_posts/**'
       - 'data/posts.json'
       - 'posts/**'
-      - 'scripts/validate-posts.mjs'
+      - 'scripts/**'
       - '.github/workflows/validate-posts.yml'
   workflow_dispatch:
 
@@ -30,5 +32,5 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Run Posts Manifest Validation
+      - name: Run Posts Manifest & Markdown Validation
         run: node scripts/validate-posts.mjs

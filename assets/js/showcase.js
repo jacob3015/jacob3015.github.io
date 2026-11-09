@@ -1,57 +1,60 @@
 /**
- * Showcase Application Script
- * Fetches game resources manifest and renders interactive card grid with search & filter.
- * Supports View Transitions API, keyboard shortcuts, and game taxonomy.
+ * Editorial Feed & Training Dashboard Controller
+ * Renders Medium-style chronological drill feed, theme filters, tag filters, and training metrics.
  */
 
-const GAME_CATEGORIES = [
-  { id: 'all', label: 'All Resources' },
-  { id: 'Lore & Story', label: 'Lore & Story' },
-  { id: 'Art & Visuals', label: 'Art & Visuals' },
-  { id: 'Audio & Sound', label: 'Audio & Sound' },
-  { id: 'Mechanics & Systems', label: 'Mechanics & Systems' },
-  { id: 'Game Tools', label: 'Game Tools' }
+const DRILL_THEMES = [
+  { id: 'all', label: 'All Drills', desc: '전체 훈련 기록' },
+  { id: 'Action', label: 'Action · 전투/마법', desc: 'Drill A: 전투/마법 연출' },
+  { id: 'Psychology', label: 'Psychology · 심리/대사', desc: 'Drill B: 심리/대사 티키타카' },
+  { id: 'Worldbuilding', label: 'Worldbuilding · 배경/분위기', desc: 'Drill C: 역동적 배경/분위기' },
+  { id: 'Pacing', label: 'Pacing · 반전/절단신공', desc: 'Drill D: 급반전과 절단신공' }
 ];
 
-const RESOURCE_TYPE_ICONS = {
-  'playable-prototype': '🎮',
-  'lore-codex': '📜',
-  'interactive-map': '🗺️',
-  'sprite-viewer': '🎨',
-  'shader-lab': '✨',
-  'audio-synth': '🎹',
-  'soundscape': '🔊',
-  'dialogue-tree': '💬',
-  'math-simulator': '📐',
-  'tool': '🛠️'
+const THEME_LABELS = {
+  Action: 'Action · 전투/마법',
+  Psychology: 'Psychology · 심리/대사',
+  Worldbuilding: 'Worldbuilding · 배경/분위기',
+  Pacing: 'Pacing · 반전/절단신공'
 };
 
-class ShowcaseApp {
+class DrillArchiveApp {
   constructor() {
     this.posts = [];
-    this.activeCategory = 'all';
+    this.activeTheme = 'all';
+    this.activeTag = '';
     this.searchQuery = '';
 
-    // DOM Elements
-    this.gridContainer = document.getElementById('posts-grid');
-    this.filterContainer = document.getElementById('category-filters');
+    // DOM References
+    this.storiesContainer = document.getElementById('stories-list');
+    this.tabsContainer = document.getElementById('category-tabs');
+    this.tagsContainer = document.getElementById('tags-cloud');
     this.searchInput = document.getElementById('search-input');
-    this.countElement = document.getElementById('posts-count');
+
+    // Stats References
+    this.statTotalEl = document.getElementById('stat-total-drills');
+    this.statAvgCharsEl = document.getElementById('stat-avg-chars');
+    this.statPassRateEl = document.getElementById('stat-pass-rate');
   }
 
   async init() {
     this.readUrlParams();
     await this.fetchPosts();
-    this.setupFilters();
+    this.renderStats();
+    this.setupThemeTabs();
+    this.setupTagsCloud();
     this.setupSearch();
     this.setupKeyboardShortcuts();
-    this.render();
+    this.renderFeed();
   }
 
   readUrlParams() {
     const params = new URLSearchParams(window.location.search);
-    if (params.has('category')) {
-      this.activeCategory = params.get('category');
+    if (params.has('theme')) {
+      this.activeTheme = params.get('theme');
+    }
+    if (params.has('tag')) {
+      this.activeTag = params.get('tag');
     }
     if (params.has('q')) {
       this.searchQuery = params.get('q');
@@ -63,14 +66,19 @@ class ShowcaseApp {
 
   updateUrlParams() {
     const params = new URLSearchParams();
-    if (this.activeCategory && this.activeCategory !== 'all') {
-      params.set('category', this.activeCategory);
+    if (this.activeTheme && this.activeTheme !== 'all') {
+      params.set('theme', this.activeTheme);
+    }
+    if (this.activeTag) {
+      params.set('tag', this.activeTag);
     }
     if (this.searchQuery.trim()) {
       params.set('q', this.searchQuery.trim());
     }
 
-    const newUrl = params.toString() ? `${window.location.pathname}?${params.toString()}` : window.location.pathname;
+    const newUrl = params.toString()
+      ? `${window.location.pathname}?${params.toString()}`
+      : window.location.pathname;
     window.history.replaceState({}, '', newUrl);
   }
 
@@ -78,63 +86,117 @@ class ShowcaseApp {
     try {
       const response = await fetch('./data/posts.json');
       if (!response.ok) {
-        throw new Error(`Failed to load posts (Status: ${response.status})`);
+        throw new Error(`Failed to fetch posts.json (${response.status})`);
       }
-      this.posts = await response.json();
+      const data = await response.json();
+      this.posts = Array.isArray(data) ? data : [];
     } catch (error) {
-      console.error('[ShowcaseApp] Fetch error:', error);
+      console.error('[DrillArchiveApp] Failed to load posts:', error);
       this.posts = [];
     }
   }
 
-  setupFilters() {
-    if (!this.filterContainer) return;
+  renderStats() {
+    const total = this.posts.length;
+    if (this.statTotalEl) {
+      this.statTotalEl.textContent = `${total}편`;
+    }
 
-    // Use predefined GAME_CATEGORIES, plus any extra categories dynamically found in posts
-    const postCategories = this.posts.map(p => p.category).filter(Boolean);
-    const existingIds = new Set(GAME_CATEGORIES.map(c => c.id.toLowerCase()));
-    const dynamicCategories = [...new Set(postCategories)]
-      .filter(cat => !existingIds.has(cat.toLowerCase()))
-      .map(cat => ({ id: cat, label: cat }));
+    if (total === 0) {
+      if (this.statAvgCharsEl) this.statAvgCharsEl.textContent = '0자';
+      if (this.statPassRateEl) this.statPassRateEl.textContent = '-';
+      return;
+    }
 
-    const allCategories = [...GAME_CATEGORIES, ...dynamicCategories];
+    const totalChars = this.posts.reduce((acc, p) => acc + (Number(p.char_count) || 0), 0);
+    const avgChars = Math.round(totalChars / total);
+    const passedCount = this.posts.filter(p => p.constraint_passed !== false).length;
+    const passRate = Math.round((passedCount / total) * 100);
 
-    this.filterContainer.innerHTML = '';
-    allCategories.forEach(cat => {
+    if (this.statAvgCharsEl) {
+      this.statAvgCharsEl.textContent = `${avgChars.toLocaleString()}자`;
+    }
+    if (this.statPassRateEl) {
+      this.statPassRateEl.textContent = `${passRate}%`;
+    }
+  }
+
+  setupThemeTabs() {
+    if (!this.tabsContainer) return;
+    this.tabsContainer.innerHTML = '';
+
+    DRILL_THEMES.forEach(theme => {
       const btn = document.createElement('button');
-      btn.className = `filter-chip ${cat.id.toLowerCase() === this.activeCategory.toLowerCase() ? 'active' : ''}`;
-      btn.textContent = cat.label;
-      btn.dataset.category = cat.id;
+      const isActive = theme.id.toLowerCase() === this.activeTheme.toLowerCase();
+      btn.className = `tab-btn ${isActive ? 'active' : ''}`;
+      btn.setAttribute('role', 'tab');
+      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      btn.dataset.theme = theme.id;
+      btn.textContent = theme.label;
 
       btn.addEventListener('click', () => {
-        this.activeCategory = cat.id;
-        this.updateFilterButtons();
+        this.activeTheme = theme.id;
+        this.updateThemeTabsUI();
         this.updateUrlParams();
         this.transitionRender();
       });
 
-      this.filterContainer.appendChild(btn);
+      this.tabsContainer.appendChild(btn);
     });
   }
 
-  updateFilterButtons() {
-    const buttons = this.filterContainer.querySelectorAll('.filter-chip');
+  updateThemeTabsUI() {
+    if (!this.tabsContainer) return;
+    const buttons = this.tabsContainer.querySelectorAll('.tab-btn');
     buttons.forEach(btn => {
-      if (btn.dataset.category.toLowerCase() === this.activeCategory.toLowerCase()) {
-        btn.classList.add('active');
-      } else {
-        btn.classList.remove('active');
-      }
+      const isMatch = btn.dataset.theme.toLowerCase() === this.activeTheme.toLowerCase();
+      btn.classList.toggle('active', isMatch);
+      btn.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+    });
+  }
+
+  setupTagsCloud() {
+    if (!this.tagsContainer) return;
+
+    const allTags = new Set();
+    this.posts.forEach(post => {
+      (post.tags || []).forEach(t => allTags.add(t));
+    });
+
+    if (allTags.size === 0) {
+      const defaultTags = ['판타지', '전투연출', '마법묘사', '심리티키타카', '던전', '오감묘사'];
+      defaultTags.forEach(t => allTags.add(t));
+    }
+
+    this.tagsContainer.innerHTML = '';
+    [...allTags].forEach(tag => {
+      const btn = document.createElement('button');
+      const isActive = this.activeTag.toLowerCase() === tag.toLowerCase();
+      btn.className = `tag-chip ${isActive ? 'active' : ''}`;
+      btn.textContent = `#${tag}`;
+
+      btn.addEventListener('click', () => {
+        if (this.activeTag.toLowerCase() === tag.toLowerCase()) {
+          this.activeTag = '';
+        } else {
+          this.activeTag = tag;
+        }
+        this.setupTagsCloud();
+        this.updateUrlParams();
+        this.transitionRender();
+      });
+
+      this.tagsContainer.appendChild(btn);
     });
   }
 
   setupSearch() {
     if (!this.searchInput) return;
 
-    let debounceTimer;
+    let timer;
     this.searchInput.addEventListener('input', (e) => {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
         this.searchQuery = e.target.value.trim().toLowerCase();
         this.updateUrlParams();
         this.transitionRender();
@@ -144,14 +206,16 @@ class ShowcaseApp {
 
   setupKeyboardShortcuts() {
     window.addEventListener('keydown', (e) => {
-      // Focus search with '/' key
-      if (e.key === '/' && document.activeElement !== this.searchInput && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) {
+      if (
+        e.key === '/' &&
+        document.activeElement !== this.searchInput &&
+        !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)
+      ) {
         e.preventDefault();
         this.searchInput?.focus();
         this.searchInput?.select();
       }
 
-      // Clear search with Escape
       if (e.key === 'Escape' && document.activeElement === this.searchInput) {
         if (this.searchInput.value) {
           this.searchInput.value = '';
@@ -166,156 +230,155 @@ class ShowcaseApp {
 
   getFilteredPosts() {
     return this.posts.filter(post => {
-      // Category check
-      const matchCategory = this.activeCategory === 'all' || 
-        (post.category && post.category.toLowerCase() === this.activeCategory.toLowerCase());
+      // Theme filter check (matches post.theme or post.categories)
+      if (this.activeTheme !== 'all') {
+        const categories = (post.categories || []).map(c => c.toLowerCase());
+        const postTheme = (post.theme || '').toLowerCase();
+        const target = this.activeTheme.toLowerCase();
+        if (postTheme !== target && !categories.includes(target)) {
+          return false;
+        }
+      }
 
-      if (!matchCategory) return false;
+      // Tag filter check
+      if (this.activeTag) {
+        const tags = (post.tags || []).map(t => t.toLowerCase());
+        if (!tags.includes(this.activeTag.toLowerCase())) {
+          return false;
+        }
+      }
 
       // Search query check
       if (!this.searchQuery) return true;
 
-      const title = (post.title || '').toLowerCase();
-      const desc = (post.description || '').toLowerCase();
-      const tags = (post.tags || []).join(' ').toLowerCase();
-      const project = (post.gameProject || '').toLowerCase();
-      const type = (post.resourceType || '').toLowerCase();
+      const haystack = [
+        post.title || '',
+        post.summary || '',
+        ...(post.keywords || []),
+        ...(post.tags || []),
+        ...(post.categories || [])
+      ].join(' ').toLowerCase();
 
-      return title.includes(this.searchQuery) ||
-             desc.includes(this.searchQuery) ||
-             tags.includes(this.searchQuery) ||
-             project.includes(this.searchQuery) ||
-             type.includes(this.searchQuery);
+      return haystack.includes(this.searchQuery);
     });
   }
 
   transitionRender() {
-    // Utilize View Transitions API if supported and user allows motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (document.startViewTransition && !prefersReducedMotion) {
       document.startViewTransition(() => {
-        this.render();
+        this.renderFeed();
       });
     } else {
-      this.render();
+      this.renderFeed();
     }
   }
 
-  render() {
-    if (!this.gridContainer) return;
+  renderFeed() {
+    if (!this.storiesContainer) return;
 
     const filtered = this.getFilteredPosts();
-
-    // Update count badge
-    if (this.countElement) {
-      this.countElement.textContent = `${filtered.length} ${filtered.length === 1 ? 'resource' : 'resources'}`;
-    }
 
     if (filtered.length === 0) {
       this.renderEmptyState();
       return;
     }
 
-    this.gridContainer.innerHTML = '';
+    this.storiesContainer.innerHTML = '';
     filtered.forEach(post => {
-      const card = this.createCardElement(post);
-      this.gridContainer.appendChild(card);
+      const articleEl = this.createStoryElement(post);
+      this.storiesContainer.appendChild(articleEl);
     });
   }
 
-  createCardElement(post) {
-    const card = document.createElement('a');
-    // Normalize path to relative path
-    const cardPath = (post.path || '#').replace(/^\//, './');
-    card.href = cardPath;
-    card.className = 'post-card';
-    card.setAttribute('aria-label', post.title);
+  createStoryElement(post) {
+    const link = document.createElement('a');
+    const path = (post.path || '#').replace(/^\//, './');
+    link.href = path;
+    link.className = 'story-item';
+    link.setAttribute('aria-label', post.title);
 
-    // Escape helper
     const escapeHtml = (str) => {
       const div = document.createElement('div');
-      div.textContent = str;
+      div.textContent = str ?? '';
       return div.innerHTML;
     };
 
-    const featuresHtml = (post.interactiveFeatures || [])
-      .map(feat => `<span class="feature-pill">✦ ${escapeHtml(feat)}</span>`)
+    const themeKey = post.theme || (post.categories && post.categories[1]) || 'Action';
+    const themeClass = `pill-${themeKey.toLowerCase()}`;
+    const themeLabel = THEME_LABELS[themeKey] || themeKey;
+
+    const dateStr = post.date ? post.date.slice(0, 10) : '';
+    const charCount = Number(post.char_count) || 0;
+    const readMin = Math.max(1, Math.round(charCount / 500));
+
+    const keywordsHtml = (post.keywords || [])
+      .map(kw => `<span class="keyword-chip">${escapeHtml(kw)}</span>`)
       .join('');
 
-    const formattedDate = post.createdAt ? new Date(post.createdAt).toLocaleDateString('ko-KR', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    }) : '';
+    const passedHtml = post.constraint_passed !== false
+      ? `<span class="constraint-badge passed">✓ 제약 통과</span>`
+      : `<span class="constraint-badge failed">✕ 제약 미달</span>`;
 
-    let thumbnailSrc = post.thumbnail || './assets/img/covers/default-cover.svg';
-    if (thumbnailSrc.startsWith('/')) {
-      thumbnailSrc = '.' + thumbnailSrc;
-    }
-
-    const typeIcon = RESOURCE_TYPE_ICONS[post.resourceType] || '🎲';
-    const typeHtml = post.resourceType 
-      ? `<span class="card-badge-type">${typeIcon} ${escapeHtml(post.resourceType)}</span>`
-      : '';
-
-    const projectHtml = post.gameProject 
-      ? `<span class="card-badge-project">${escapeHtml(post.gameProject)}</span>`
-      : '';
-
-    card.innerHTML = `
-      <div class="card-cover">
-        <img src="${escapeHtml(thumbnailSrc)}" alt="${escapeHtml(post.title)}" loading="lazy" />
-        <div class="card-cover-badges">
-          ${post.category ? `<span class="card-badge-category">${escapeHtml(post.category)}</span>` : ''}
-          ${projectHtml}
+    link.innerHTML = `
+      <article>
+        <div class="story-meta-top">
+          <span class="pill ${escapeHtml(themeClass)}">${escapeHtml(themeLabel)}</span>
+          <span class="meta-dot">·</span>
+          <time datetime="${escapeHtml(dateStr)}">${escapeHtml(dateStr)}</time>
+          <span class="meta-dot">·</span>
+          <span>Lv.${escapeHtml(String(post.drill_level || 3))}</span>
+          <span class="meta-dot">·</span>
+          ${passedHtml}
         </div>
-      </div>
-      <div class="card-content">
-        <div class="card-meta">
-          <span>${formattedDate}</span>
-          <div style="display:flex; gap:0.35rem; align-items:center;">
-            ${typeHtml}
-            ${post.featured ? '<span class="badge" style="font-size:0.7rem; padding:0.1rem 0.4rem;">Featured</span>' : ''}
+
+        <h2 class="story-title">${escapeHtml(post.title)}</h2>
+        <p class="story-summary">${escapeHtml(post.summary || '')}</p>
+
+        <div class="story-footer">
+          <div class="story-keywords" aria-label="필수 포함 키워드">
+            ${keywordsHtml}
+          </div>
+          <div class="story-stats">
+            <span>${charCount.toLocaleString()}자</span>
+            <span>·</span>
+            <span>${readMin} min read</span>
           </div>
         </div>
-        <h3 class="card-title">${escapeHtml(post.title)}</h3>
-        <p class="card-desc">${escapeHtml(post.description || '')}</p>
-        ${featuresHtml ? `<div class="card-features">${featuresHtml}</div>` : ''}
-        <div class="card-action">
-          <span>Open Resource</span>
-          <span class="action-arrow">→</span>
-        </div>
-      </div>
+      </article>
     `;
 
-    return card;
+    return link;
   }
 
   renderEmptyState() {
     if (this.posts.length === 0) {
-      // Clean baseline state when no posts are published yet
-      this.gridContainer.innerHTML = `
-        <div class="empty-state">
-          <div class="empty-state-icon">🎮</div>
-          <h3>게임 리소스 아카이브 준비 중</h3>
-          <p>세계관 지도, 인터랙티브 스프라이트, 절차적 오디오 및 게임 메커닉 리소스가 곧 게재될 예정입니다.</p>
+      this.storiesContainer.innerHTML = `
+        <div class="empty-feed">
+          <span class="empty-feed-badge">Ready for Drill #01</span>
+          <h3>아직 등록된 집필 훈련 기록이 없습니다</h3>
+          <p>
+            새로운 1시간 판타지 장면 묘사 훈련을 시작할 준비가 완료되었습니다.
+            에이전트에게 과제를 요청하면 <code>draft.md</code> 파일에 오늘의 시추에이션과 제약 조건이 자동으로 세팅됩니다.
+          </p>
+          <div class="empty-command-box">
+            💡 <strong>시작 방법:</strong> 채팅창에 <strong>"오늘의 과제 줘"</strong> 또는 <strong>"전투 묘사 과제 줘"</strong>라고 입력해 보세요.
+          </div>
         </div>
       `;
     } else {
-      // Empty search/filter result state
-      this.gridContainer.innerHTML = `
-        <div class="empty-state">
-          <div class="empty-state-icon">🔍</div>
-          <h3>조건에 맞는 게임 리소스를 찾을 수 없습니다</h3>
-          <p>다른 검색어를 입력하거나 필터를 'All Resources'로 변경해 보세요.</p>
+      this.storiesContainer.innerHTML = `
+        <div class="empty-feed">
+          <span class="empty-feed-badge">No Matches</span>
+          <h3>조건에 맞는 훈련 기록을 찾지 못했습니다</h3>
+          <p>다른 검색어를 입력하거나 상단 테마 탭을 'All Drills'로 변경해 보세요.</p>
         </div>
       `;
     }
   }
 }
 
-// Bootstrap on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
-  const app = new ShowcaseApp();
+  const app = new DrillArchiveApp();
   app.init();
 });

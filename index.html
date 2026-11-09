@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="게임 개발에 필요한 세계관, 아트, 오디오, 서사, 메커닉 등 종합 예술 리소스를 웹 표준 기술로 프로토타이핑하고 아카이빙하는 플레이어블 리소스 랩">
+    <meta name="color-scheme" content="light dark">
+    <meta name="description" content="판타지 웹 소설 입체 연출력(전투, 마법, 심리, 호흡) 강화를 위한 1시간 집중 집필 훈련 및 장면 에셋 아카이브">
 
-    <!-- favicons -->
+    <!-- Favicons -->
     <link rel="icon" href="./assets/img/icons/favicon-16x16.png" sizes="16x16" type="image/png">
     <link rel="icon" href="./assets/img/icons/favicon-32x32.png" sizes="32x32" type="image/png">
     <link rel="icon" href="./assets/img/icons/favicon.ico" sizes="48x48" type="image/x-icon">
@@ -21,58 +22,124 @@
     <script type="module" src="./assets/js/site-components.js"></script>
     <script type="module" src="./assets/js/showcase.js"></script>
 
-    <title>Jacob's Interactive Game Lab</title>
+    <title>Jacob's Novel Drill — 판타지 웹 소설 집필 훈련 아카이브</title>
 </head>
 <body>
     <site-header></site-header>
 
     <main class="container">
-        <!-- Hero & Profile Section -->
-        <section class="hero">
-            <div class="hero-badges">
-                <span class="badge">Pure Web Standards</span>
-                <span class="badge" style="background-color: var(--accent-subtle); color: var(--accent-primary);">Game Resource Lab</span>
-                <span class="badge" style="background-color: rgba(16, 185, 129, 0.12); color: #059669;">Playable Prototypes</span>
-            </div>
+        <div class="editorial-layout">
+            <!-- Main Feed Column (Medium Style) -->
+            <section class="feed-column" aria-label="집필 훈련 포스트 피드">
+                <header class="feed-header">
+                    <span class="feed-kicker">Fantasy Web Novel Writing Lab</span>
+                    <h1 class="feed-title">3차원 장면 묘사 훈련 기록</h1>
+                    <p class="feed-subtitle">
+                        단순 행동·대사 나열을 넘어 오감, 행동 지문, 모바일 호흡을 살린 판타지 웹 소설 1시간 집중 훈련(600~1,000자)과 AI 코칭 피드백을 아카이빙합니다.
+                    </p>
+                </header>
 
-            <h1 class="hero-title">Jacob's Interactive Game Lab</h1>
-            <p class="hero-description">
-                게임 개발에 필요한 세계관, 아트, 사운드, 시나리오, 인터랙티브 시스템 등 종합 예술 리소스를
-                웹 표준 기술로 프로토타이핑하고 아카이빙하는 플레이어블 리소스 랩입니다.
-            </p>
+                <!-- Medium-style Category Tab Bar -->
+                <nav class="feed-tabs-bar" aria-label="훈련 테마 필터">
+                    <div class="category-tabs" id="category-tabs" role="tablist">
+                        <!-- Dynamically rendered by showcase.js -->
+                    </div>
+                </nav>
 
-            <div class="hero-profile">
-                <div class="profile-avatar">J</div>
-                <div class="profile-info">
-                    <h3>Jacob (Jaimin Pak)</h3>
-                    <p>Game Creator & Tech Explorer • Vanilla Web Standards, Game Mechanics</p>
+                <!-- Chronological Stories Feed -->
+                <div class="stories-list" id="stories-list" aria-live="polite">
+                    <!-- Dynamically rendered by showcase.js -->
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Controls: Filters & Search -->
-        <section class="controls-bar" aria-label="게임 리소스 검색 및 필터">
-            <div class="category-filters" id="category-filters" role="tablist">
-                <!-- Dynamically populated by showcase.js -->
-            </div>
+            <!-- Right Sticky Sidebar -->
+            <aside class="sidebar-column" aria-label="작가 프로필 및 훈련 통계">
+                <div class="sidebar-sticky">
+                    <!-- Search Box -->
+                    <div class="sidebar-section">
+                        <div class="search-wrapper">
+                            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                            <input type="search" id="search-input" class="search-input" placeholder="장면 요약, 키워드, 태그 검색..." aria-label="훈련 기록 검색">
+                            <kbd class="search-kbd" title="검색 단축키">/</kbd>
+                        </div>
+                    </div>
 
-            <div style="display: flex; align-items: center; gap: var(--space-md); justify-content: space-between;">
-                <div class="search-box">
-                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                    <input type="search" id="search-input" class="search-input" placeholder="세계관, 스프라이트, 사운드, 메커닉 검색..." aria-label="게임 리소스 검색">
-                    <kbd class="search-kbd" title="검색 단축키">/</kbd>
+                    <!-- Writer Profile & Main Novel Challenge Status -->
+                    <div class="sidebar-section">
+                        <div class="writer-profile-header">
+                            <div class="writer-avatar" aria-hidden="true">J</div>
+                            <div>
+                                <h2 class="writer-name">Jacob</h2>
+                                <p class="writer-role">Fantasy Web Novel Writer</p>
+                            </div>
+                        </div>
+                        <p class="writer-bio">
+                            검과 마법, 던전, 몬스터, 이능력이 교차하는 판타지 세계를 집필합니다. Show, Don't Tell과 감각적 렌더링을 체화하는 중입니다.
+                        </p>
+
+                        <div class="challenge-card">
+                            <div class="challenge-card-top">
+                                <span class="challenge-level-label">본 원고 집필 챌린지 · 3단계</span>
+                                <span class="challenge-quota">일일 1,500자</span>
+                            </div>
+                            <div class="challenge-progress-track" role="progressbar" aria-valuenow="3" aria-valuemin="1" aria-valuemax="10" aria-label="10단계 중 3단계 진행 중">
+                                <div class="challenge-progress-fill" style="width: 30%;"></div>
+                            </div>
+                            <p class="challenge-caption">1단계(500자) → 10단계(5,000자) · 훈련 적정 분량 600~1,000자</p>
+                        </div>
+
+                        <div class="stats-grid">
+                            <div class="stat-cell">
+                                <div class="stat-value" id="stat-total-drills">0</div>
+                                <div class="stat-label">완료 드릴</div>
+                            </div>
+                            <div class="stat-cell">
+                                <div class="stat-value" id="stat-avg-chars">0자</div>
+                                <div class="stat-label">평균 분량</div>
+                            </div>
+                            <div class="stat-cell">
+                                <div class="stat-value" id="stat-pass-rate">-</div>
+                                <div class="stat-label">제약 달성</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tags Filter Cloud -->
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-heading">세부 태그 & 소재</h3>
+                        <div class="tags-cloud" id="tags-cloud">
+                            <!-- Dynamically populated by showcase.js -->
+                        </div>
+                    </div>
+
+                    <!-- 1-Hour Training Workflow Reference -->
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-heading">1-Hour Drill Workflow</h3>
+                        <div class="workflow-steps">
+                            <div class="workflow-step">
+                                <span class="step-num">1</span>
+                                <span><strong>과제 출제 (5m):</strong> 시추에이션·필수 키워드 3개·절대 제약 조건 부여 (<code>draft.md</code> 자동 세팅)</span>
+                            </div>
+                            <div class="workflow-step">
+                                <span class="step-num">2</span>
+                                <span><strong>집필 & 회고 (40m):</strong> <code>draft.md</code>에 600~1,000자 초고 및 3줄 셀프 회고 작성</span>
+                            </div>
+                            <div class="workflow-step">
+                                <span class="step-num">3</span>
+                                <span><strong>입체화 코칭 (10m):</strong> 1차원 → 3차원 렌더링 교정 및 모바일 호흡 피드백</span>
+                            </div>
+                            <div class="workflow-step">
+                                <span class="step-num">4</span>
+                                <span><strong>패키징 & 배포 (5m):</strong> <code>_posts/*.md</code> 아카이빙 및 HTML/JSON 자동 빌드·배포</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <span class="posts-count" id="posts-count">0 resources</span>
-            </div>
-        </section>
-
-        <!-- Interactive Posts Grid -->
-        <section class="posts-grid" id="posts-grid" aria-live="polite">
-            <!-- Dynamically populated by showcase.js -->
-        </section>
+            </aside>
+        </div>
     </main>
 
     <site-footer></site-footer>
