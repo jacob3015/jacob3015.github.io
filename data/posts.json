@@ -1,5 +1,34 @@
 [
   {
+    "id": "2026-11-11-drill-02-campfire-soup-subtext",
+    "title": "[Drill #02] 식어가는 수프와 불티, 웃는 얼굴 뒤의 탄도 계산",
+    "date": "2026-11-11 18:35:32 +0900",
+    "categories": [
+      "Writing-Drill",
+      "Psychology"
+    ],
+    "theme": "Psychology",
+    "tags": [
+      "판타지",
+      "심리전",
+      "티키타카",
+      "서브텍스트",
+      "야영지",
+      "배신"
+    ],
+    "drill_level": 3,
+    "char_count": 662,
+    "keywords": [
+      "나무 그릇",
+      "불티",
+      "그을음"
+    ],
+    "constraint_passed": true,
+    "summary": "전투 중 고의로 자신의 급소를 노린 동료 마법사가 건네는 수프를 곧장 받지 않고 바닥에 내려놓으며, 평온한 농담 속에 살벌한 의심을 주고받는 모닥불 심리전",
+    "path": "/posts/2026-11-11-drill-02-campfire-soup-subtext/",
+    "source_md": "_posts/2026-11-11-drill-02-campfire-soup-subtext.md"
+  },
+  {
     "id": "2026-11-09-drill-01-black-iron-golem-counter",
     "title": "[Drill #01] 폭발의 엇박자, 부서진 검으로 꿰뚫은 흑철의 심장",
     "date": "2026-11-09 20:10:59 +0900",
