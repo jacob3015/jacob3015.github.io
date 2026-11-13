@@ -1,5 +1,34 @@
 [
   {
+    "id": "2026-11-13-drill-03-submerged-library-reverse-gravity",
+    "title": "[Drill #03] 역류하는 물방울과 창백한 파문, 침묵의 수몰 도서관",
+    "date": "2026-11-13 21:45:00 +0900",
+    "categories": [
+      "Writing-Drill",
+      "Worldbuilding"
+    ],
+    "theme": "Worldbuilding",
+    "tags": [
+      "판타지",
+      "배경묘사",
+      "마탑유적",
+      "수몰도서관",
+      "중력역전",
+      "오감연출"
+    ],
+    "drill_level": 3,
+    "char_count": 606,
+    "keywords": [
+      "양피지",
+      "파문",
+      "현기증"
+    ],
+    "constraint_passed": true,
+    "summary": "시간과 중력이 뒤틀린 수몰 도서관에 첫발을 내디딘 마리우스가 뺨을 타고 역류하는 물방울에 현기증을 일으키며 주저앉고, 떨리는 무릎의 파문 위로 발광 양피지들이 별무리처럼 깨어나는 공간 연출",
+    "path": "/posts/2026-11-13-drill-03-submerged-library-reverse-gravity/",
+    "source_md": "_posts/2026-11-13-drill-03-submerged-library-reverse-gravity.md"
+  },
+  {
     "id": "2026-11-11-drill-02-campfire-soup-subtext",
     "title": "[Drill #02] 식어가는 수프와 불티, 웃는 얼굴 뒤의 탄도 계산",
     "date": "2026-11-11 18:35:32 +0900",
