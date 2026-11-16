@@ -1,5 +1,34 @@
 [
   {
+    "id": "2026-11-16-drill-04-shattered-return-stone-guardian-heartbeat",
+    "title": "[Drill #04] 부서진 귀환석과 역류하는 피, 제단 아래서 눈뜬 심장",
+    "date": "2026-11-16 22:14:00 +0900",
+    "categories": [
+      "Writing-Drill",
+      "Pacing"
+    ],
+    "theme": "Pacing",
+    "tags": [
+      "판타지",
+      "절단신공",
+      "급반전",
+      "던전레이드",
+      "봉인구",
+      "호흡조절"
+    ],
+    "drill_level": 3,
+    "char_count": 735,
+    "keywords": [
+      "귀환석",
+      "홈",
+      "박동"
+    ],
+    "constraint_passed": true,
+    "summary": "보스 토벌 직후 퇴근 농담을 주고받으며 작동시킨 귀환석이 굉음과 함께 금이 가고, 보스의 피가 제단 홈으로 빨려 들어가며 진짜 재앙의 심장 박동이 깨어나는 반전 엔딩",
+    "path": "/posts/2026-11-16-drill-04-shattered-return-stone-guardian-heartbeat/",
+    "source_md": "_posts/2026-11-16-drill-04-shattered-return-stone-guardian-heartbeat.md"
+  },
+  {
     "id": "2026-11-13-drill-03-submerged-library-reverse-gravity",
     "title": "[Drill #03] 역류하는 물방울과 창백한 파문, 침묵의 수몰 도서관",
     "date": "2026-11-13 21:45:00 +0900",
