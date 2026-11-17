@@ -1,5 +1,33 @@
 [
   {
+    "id": "2026-11-17-drill-05-rain-alley-invisible-assassin-counter",
+    "title": "[Drill #05] 백색 소음 속 튕겨 나간 빗방울, 허공을 가른 푸른 잔상",
+    "date": "2026-11-17 16:43:00 +0900",
+    "categories": [
+      "Writing-Drill",
+      "Action"
+    ],
+    "theme": "Action",
+    "tags": [
+      "판타지",
+      "전투연출",
+      "은신암살자",
+      "빗속결투",
+      "뇌전검술",
+      "단문호흡"
+    ],
+    "char_count": 680,
+    "keywords": [
+      "빗방울",
+      "수막",
+      "잔상"
+    ],
+    "constraint_passed": true,
+    "summary": "장대비라는 백색 소음 속에서 눈을 감고 단검에 부딪히는 빗방울 소리와 수막의 파열만으로 은신한 암살자의 돌진을 포착해 푸른 뇌전의 일섬으로 베어 넘기는 감각적 카운터 전투",
+    "path": "/posts/2026-11-17-drill-05-rain-alley-invisible-assassin-counter/",
+    "source_md": "_posts/2026-11-17-drill-05-rain-alley-invisible-assassin-counter.md"
+  },
+  {
     "id": "2026-11-16-drill-04-shattered-return-stone-guardian-heartbeat",
     "title": "[Drill #04] 부서진 귀환석과 역류하는 피, 제단 아래서 눈뜬 심장",
     "date": "2026-11-16 22:14:00 +0900",
