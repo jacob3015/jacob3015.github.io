@@ -3,7 +3,6 @@ title: "[Drill #01] 폭발의 엇박자, 부서진 검으로 꿰뚫은 흑철의
 date: 2026-11-09 20:10:59 +0900
 categories: [Writing-Drill, Action]
 tags: [판타지, 전투연출, 골렘전, 마법검사, 일격필살]
-drill_level: 3
 char_count: 673
 keywords: ["실금", "쇳내", "엇박자"]
 constraint_passed: true

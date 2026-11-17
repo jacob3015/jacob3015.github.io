@@ -3,7 +3,6 @@ title: "[Drill #02] 식어가는 수프와 불티, 웃는 얼굴 뒤의 탄도 �
 date: 2026-11-11 18:35:32 +0900
 categories: [Writing-Drill, Psychology]
 tags: [판타지, 심리전, 티키타카, 서브텍스트, 야영지, 배신]
-drill_level: 3
 char_count: 662
 keywords: ["나무 그릇", "불티", "그을음"]
 constraint_passed: true

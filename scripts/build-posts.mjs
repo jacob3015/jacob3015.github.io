@@ -360,7 +360,6 @@ function generatePostHtml(postMeta, sections) {
             <header class="article-header">
                 <div class="article-category-row">
                     <span class="pill ${escapeHtml(themeClass)}">${escapeHtml(themeLabel)}</span>
-                    <span class="pill">본 원고 Lv.${escapeHtml(String(postMeta.drill_level || 3))}</span>
                 </div>
 
                 <h1 class="article-title">${escapeHtml(postMeta.title)}</h1>
@@ -466,7 +465,6 @@ function buildAll() {
       categories,
       theme,
       tags: Array.isArray(meta.tags) ? meta.tags : ['판타지'],
-      drill_level: Number(meta.drill_level) || 3,
       char_count: charCount,
       keywords: Array.isArray(meta.keywords) ? meta.keywords : [],
       constraint_passed: meta.constraint_passed !== false,

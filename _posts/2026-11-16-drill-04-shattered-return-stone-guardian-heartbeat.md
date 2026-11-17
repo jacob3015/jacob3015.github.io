@@ -3,7 +3,6 @@ title: "[Drill #04] 부서진 귀환석과 역류하는 피, 제단 아래서 �
 date: 2026-11-16 22:14:00 +0900
 categories: [Writing-Drill, Pacing]
 tags: [판타지, 절단신공, 급반전, 던전레이드, 봉인구, 호흡조절]
-drill_level: 3
 char_count: 735
 keywords: ["귀환석", "홈", "박동"]
 constraint_passed: true

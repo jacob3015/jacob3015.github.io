@@ -155,25 +155,6 @@ class SiteHeader extends HTMLElement {
           gap: 0.85rem;
         }
 
-        .level-pill {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.35rem;
-          padding: 0.25rem 0.65rem;
-          border-radius: 9999px;
-          font-size: 0.75rem;
-          font-weight: 600;
-          background-color: var(--accent-subtle, #e8f3e8);
-          color: var(--accent-primary, #1a8917);
-        }
-
-        .level-dot {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          background-color: currentColor;
-        }
-
         .nav-link {
           color: var(--text-secondary, #6b6b6b);
           text-decoration: none;
@@ -225,10 +206,6 @@ class SiteHeader extends HTMLElement {
         </a>
 
         <nav class="nav-actions" aria-label="사이트 내비게이션">
-          <span class="level-pill" title="현재 본 원고 챌린지 단계: 3단계 (일일 최소 1,500자)">
-            <span class="level-dot"></span>
-            Lv.3 · 1,500자
-          </span>
           <a href="${homeUrl}" class="nav-link">Drills</a>
           <a href="https://github.com/jacob3015/jacob3015.github.io" target="_blank" rel="noopener noreferrer" class="nav-link">GitHub</a>
           <button id="theme-toggle" class="theme-btn" aria-label="다크/라이트 테마 전환" title="테마 전환">

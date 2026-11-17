@@ -3,7 +3,6 @@ title: "[Drill #03] 역류하는 물방울과 창백한 파문, 침묵의 수몰
 date: 2026-11-13 21:45:00 +0900
 categories: [Writing-Drill, Worldbuilding]
 tags: [판타지, 배경묘사, 마탑유적, 수몰도서관, 중력역전, 오감연출]
-drill_level: 3
 char_count: 606
 keywords: ["양피지", "파문", "현기증"]
 constraint_passed: true

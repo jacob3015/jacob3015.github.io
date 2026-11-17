@@ -24,7 +24,6 @@ const REQUIRED_MANIFEST_FIELDS = [
   'date',
   'categories',
   'tags',
-  'drill_level',
   'char_count',
   'keywords',
   ' summary'.trim(),

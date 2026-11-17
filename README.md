@@ -6,7 +6,7 @@
 [![Pure Web Standards](https://img.shields.io/badge/Architecture-Pure_HTML_CSS_JS-242424)](https://jacob3015.github.io)
 [![Editorial Design](https://img.shields.io/badge/Style-Medium_Editorial-serif)](https://jacob3015.github.io)
 
-**Jacob's Novel Drill**(`https://jacob3015.github.io`)은 판타지 웹 소설(검과 마법, 던전, 몬스터, 이능력) 본 원고 집필과 병행하여, **1시간 단위의 집중 묘사 훈련(600~1,000자)**과 **AI 코치의 1차원 → 3차원 입체화 교정 피드백**을 기록하고 본편 집필용 장면 에셋으로 관리하는 아카이브입니다.
+**Jacob's Novel Drill**(`https://jacob3015.github.io`)은 판타지 웹 소설(검과 마법, 던전, 몬스터, 이능력)의 입체적인 연출력을 기르기 위해, **1시간 단위의 집중 묘사 훈련(600~1,000자)**과 **AI 코치의 1차원 → 3차원 입체화 교정 피드백**을 기록하고 장면 에셋으로 관리하는 아카이브입니다.
 
 ---
 

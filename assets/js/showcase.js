@@ -327,8 +327,6 @@ class DrillArchiveApp {
           <span class="meta-dot">·</span>
           <time datetime="${escapeHtml(dateStr)}">${escapeHtml(dateStr)}</time>
           <span class="meta-dot">·</span>
-          <span>Lv.${escapeHtml(String(post.drill_level || 3))}</span>
-          <span class="meta-dot">·</span>
           ${passedHtml}
         </div>
 
